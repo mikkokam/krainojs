@@ -152,7 +152,7 @@ export class Sequential{
 
         const timeStart: number = new Date().valueOf();
 
-        const inputArray = this.convertToDeeplearnArrays(options.input);       
+        const inputArray = options.input.map(el => this.convertToDeeplearnArray(el));
         const targetArray = options.target.map(el => Array1D.new(el));
         const shuffledInputProviderBuilder =
             new InCPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]);
@@ -194,11 +194,7 @@ export class Sequential{
         options.batchSize = options.batchSize || 32;
         options.verbose = options.verbose || 1;
 
-        console.log('1',options.input);
-        const inputArray = this.convertToDeeplearnArrays(options.input)[0];
-
-        console.log('2',inputArray);
-
+        const inputArray = this.convertToDeeplearnArray(options.input);
         const val = this.deeplearn.session.eval(this.deeplearn.predictionTensor, 
             [{tensor: this.deeplearn.inputTensor, data: inputArray}]);
 
@@ -209,26 +205,26 @@ export class Sequential{
         console.log(msg);
     }
 
-    private convertToDeeplearnArrays(arr: number[][]): any[]{
-        let dims = this.getDims(arr[0]);
-        let multiDimArray;
+    private convertToDeeplearnArray(arr: number[]): NDArray{
+        let dims = this.getDims(arr);
+        let dlArray;
         switch(dims.length){
             case 1:
-            multiDimArray = arr.map(el => Array1D.new(el));
+            dlArray = Array1D.new(arr);
             break;
             case 2:
-            multiDimArray = arr.map(el => Array2D.new(dims as [number,number], el));
+            dlArray = Array2D.new(dims as [number,number], arr);
             break;
             case 3:
-            multiDimArray = arr.map(el => Array3D.new(dims as [number,number,number], el));
+            dlArray = Array3D.new(dims as [number,number,number], arr);
             break;
             case 4:
-            multiDimArray = arr.map(el => Array4D.new(dims as [number,number,number,number], el));
+            dlArray = Array4D.new(dims as [number,number,number,number], arr);
             break;
             default:
             throw(`Unknown dimensionality for array: ${arr}`)
         }
-        return multiDimArray;
+        return dlArray;
     }
 
     private getCostFunction(loss: Loss){
