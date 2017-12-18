@@ -1,0 +1,23 @@
+{
+  "name": "kerasjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "deeplearn": "0.3.13"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "ts-node": "^4.0.1",
+    "typescript": "^2.6.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precompile": "npm run clean",
+    "clean": "rimraf dist/*",
+    "compile": "npm run compile:ts",
+    "compile:ts": "tsc --outDir ./dist --module commonjs ./src/index.ts"
+  },
+  "author": "Mikko Kamarainen, Goodhum, https://goodhum.com",
+  "license": "ISC"
+}
