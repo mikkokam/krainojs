@@ -8,7 +8,6 @@ import { DeeplearnConverter, DeeplearnModel } from './deeplearn-converter';
  * The Sequential model is a linear stack of layers.
  */
 export class Sequential{
-    public model: Layer[] = [];
 
     /**
      * @param stats.compiled The model is compiled succesfully.
@@ -28,6 +27,8 @@ export class Sequential{
         epochsRun: 0
     }
 
+    // The Layers as an Array.
+    private model: Layer[] = [];
     private deeplearn: DeeplearnModel = {}
 
 
@@ -35,7 +36,13 @@ export class Sequential{
     /**
      * Constructor - a new Sequential model.
      * @param model Optionally, you can provide the Layers as an Array.
-     *      Or, you can instantiate an empty model with new Sequential() and add layers via the .add() method.
+     *      Or, you can instantiate an empty model with:
+     *      <pre>let model = new Sequential();
+            // And then add layers:
+            model.add(new Input(2));
+            model.add(new Dense(8));
+            model.add(new Activation('relu'));
+            model.add(new Output(1));</pre>
      */
     constructor(model?: Layer[]){
         this.stats.compiled = false;

@@ -23,7 +23,7 @@
     "precompile": "npm run clean",
     "clean": "rimraf dist/*",
     "build": "tsc",
-    "docs": "typedoc --mode modules src/models/sequential.ts --out docs/ --excludeExternals"
+    "docs": "typedoc --mode file src/models/sequential.ts --out docs/ --excludeExternals --theme minimal"
   },
   "author": "Mikko Kamarainen, mikko@goodhum.com, Goodhum, https://goodhum.com",
   "license": "MIT"
