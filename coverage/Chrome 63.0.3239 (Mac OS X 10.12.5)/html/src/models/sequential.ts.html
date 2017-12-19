@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/models/sequential.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/models/</a> sequential.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">11.17% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>20/179</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/83</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.56% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.1% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>19/157</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">import { Layer, Loss, Optimizer } from '../';
+&nbsp;
+import { Graph, Tensor, Session, CostReduction, NDArrayMath, NDArrayMathCPU, NDArrayMathGPU, SGDOptimizer, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
+import { AdamOptimizer, AdamaxOptimizer, AdadeltaOptimizer, AdagradOptimizer, MomentumOptimizer } from 'deeplearn';
+import { Array4D, Array2D, Array3D, NDArray } from 'deeplearn/dist/math/ndarray';
+&nbsp;
+&nbsp;
+/**
+ * Linear stack of layers.
+ */
+export class Sequential{
+    public <span class="cstat-no" title="statement not covered" >model: Layer[] = [];</span>
+&nbsp;
+    public <span class="cstat-no" title="statement not covered" >stats: {</span>
+        compiled: boolean,
+        cost: Scalar,
+        loss: number,
+        epochsRun: number
+    } = {
+        compiled: false,
+        cost: null,
+        loss: 1,
+        epochsRun: 0
+    }
+&nbsp;
+    private <span class="cstat-no" title="statement not covered" >deeplearn: {</span>
+        graph?: Graph,
+        inputTensor?: Tensor,
+        targetTensor?: Tensor,
+        predictionTensor?: Tensor,
+        costTensor?: Tensor,
+        session?: Session,
+        math?: NDArrayMath,
+        optimizer?: any
+    } = {};
+&nbsp;
+<span class="fstat-no" title="function not covered" >    constructor(model?: Layer[])</span>{
+<span class="cstat-no" title="statement not covered" >        this.stats.compiled = false;</span>
+<span class="cstat-no" title="statement not covered" >        if(model) <span class="cstat-no" title="statement not covered" >model.forEach(<span class="fstat-no" title="function not covered" >layer </span>=&gt; <span class="cstat-no" title="statement not covered" >this.add(layer))</span>;</span></span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    add(layer: Layer)</span>{
+<span class="cstat-no" title="statement not covered" >        this.stats.compiled = false;</span>
+<span class="cstat-no" title="statement not covered" >        this.model.push(layer);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    compile(options: {</span>
+        optimizer?: Optimizer | string,
+        loss?: Loss | string
+    }){
+        // Defaults
+<span class="cstat-no" title="statement not covered" >        options.optimizer = options.optimizer || 'SGD';</span>
+<span class="cstat-no" title="statement not covered" >        options.loss = options.loss || 'meanSquared';</span>
+        // String or an Object accepted
+<span class="cstat-no" title="statement not covered" >        options.optimizer = (typeof(options.optimizer) == 'string') ? new Optimizer(options.optimizer) : options.optimizer;</span>
+<span class="cstat-no" title="statement not covered" >        options.loss = (typeof(options.loss) == 'string') ? new Loss(options.loss) : options.loss;</span>
+&nbsp;
+        // Init deeplearn.js model
+<span class="cstat-no" title="statement not covered" >        let dl = this.deeplearn;</span>
+<span class="cstat-no" title="statement not covered" >        dl.math = (typeof window === 'undefined') ? new NDArrayMathCPU() : new NDArrayMathGPU();</span>
+<span class="cstat-no" title="statement not covered" >        dl.graph = new Graph();</span>
+        
+        // This tensor contains the input
+<span class="cstat-no" title="statement not covered" >        if(this.model[0].constructor.name !== 'Input') <span class="cstat-no" title="statement not covered" >throw ('First layer must be an Input layer.');</span></span>
+<span class="cstat-no" title="statement not covered" >        let inputDims:number[] = this.model[0].units as number[];</span>
+<span class="cstat-no" title="statement not covered" >        dl.inputTensor = dl.graph.placeholder('input', inputDims);</span>
+        
+        // This tensor contains the target
+<span class="cstat-no" title="statement not covered" >        if(this.model[this.model.length-1].constructor.name !== 'Output') <span class="cstat-no" title="statement not covered" >throw ('Last layer must be an Output layer.')</span></span>
+<span class="cstat-no" title="statement not covered" >        let outputDims: number[] = this.model[this.model.length-1].units as number[];</span>
+<span class="cstat-no" title="statement not covered" >        dl.targetTensor = dl.graph.placeholder('output', outputDims);</span>
+&nbsp;
+        // Hidden layers
+<span class="cstat-no" title="statement not covered" >        let prevLayer = dl.inputTensor;</span>
+<span class="cstat-no" title="statement not covered" >        let prevLayerDims: number[] = inputDims;</span>
+<span class="cstat-no" title="statement not covered" >        for(let i=1; i&lt;(this.model.length-1);i++){</span>
+<span class="cstat-no" title="statement not covered" >            let layer = this.model[i];</span>
+<span class="cstat-no" title="statement not covered" >            switch(layer.constructor.name){</span>
+                case 'Dense':
+<span class="cstat-no" title="statement not covered" >                prevLayerDims = layer.units as number[];</span>
+<span class="cstat-no" title="statement not covered" >                prevLayer = dl.graph.layers.dense(</span>
+                    `layer-${i}`, prevLayer, layer.units as number);
+                // Use embedded Activation if available
+<span class="cstat-no" title="statement not covered" >                if(layer.options.activation) {</span>
+<span class="cstat-no" title="statement not covered" >                    let activation = this.convertToDeeplearnActivation(prevLayer, layer.options.activation);</span>
+<span class="cstat-no" title="statement not covered" >                    if(activation) <span class="cstat-no" title="statement not covered" >prevLayer = activation;</span></span>
+                }
+<span class="cstat-no" title="statement not covered" >                break;</span>
+                
+                case 'Activation':
+<span class="cstat-no" title="statement not covered" >                let activation = this.convertToDeeplearnActivation(prevLayer, layer);</span>
+<span class="cstat-no" title="statement not covered" >                if(activation) <span class="cstat-no" title="statement not covered" >prevLayer = activation;</span></span>
+<span class="cstat-no" title="statement not covered" >                break;</span>
+&nbsp;
+                case 'MaxPooling2D':
+<span class="cstat-no" title="statement not covered" >                prevLayerDims = layer.units as number[];</span>
+<span class="cstat-no" title="statement not covered" >                prevLayer = dl.graph.maxPool(prevLayer, layer.units as number, layer.options.stride, layer.options.zeroPad);</span>
+<span class="cstat-no" title="statement not covered" >                break;</span>
+                
+                case 'Conv2D':
+<span class="cstat-no" title="statement not covered" >                prevLayerDims = layer.units as number[];</span>
+<span class="cstat-no" title="statement not covered" >                prevLayer = this.convertToDeeplearnConv2D(</span>
+                    prevLayer,
+                    layer.units as number, layer.options.stride, layer.options.zeroPad, layer.options.outputDepth,
+                    prevLayerDims as number[], i
+                );
+                 // Use embedded Activation if available
+<span class="cstat-no" title="statement not covered" >                 if(layer.options.activation) {</span>
+<span class="cstat-no" title="statement not covered" >                    let activation = this.convertToDeeplearnActivation(prevLayer, layer.options.activation);</span>
+<span class="cstat-no" title="statement not covered" >                    if(activation) <span class="cstat-no" title="statement not covered" >prevLayer = activation;</span></span>
+                }
+<span class="cstat-no" title="statement not covered" >                break;</span>
+&nbsp;
+                case 'Flatten':
+<span class="cstat-no" title="statement not covered" >                prevLayer = dl.graph.reshape(prevLayer, [util.sizeFromShape(prevLayerDims as number[])]); </span>
+<span class="cstat-no" title="statement not covered" >                break;</span>
+&nbsp;
+                case 'Reshape':
+<span class="cstat-no" title="statement not covered" >                prevLayer = dl.graph.reshape(prevLayer, layer.units as number[]); </span>
+<span class="cstat-no" title="statement not covered" >                break;</span>
+&nbsp;
+                default:
+<span class="cstat-no" title="statement not covered" >                throw ('Unknown layer type: '+layer.constructor.name);</span>
+            }
+        
+        }
+&nbsp;
+        // This tensor contains the predictions
+<span class="cstat-no" title="statement not covered" >        dl.predictionTensor = dl.graph.layers.dense('prediction', prevLayer, outputDims[0]);</span>
+&nbsp;
+        // Add a cost tensor that specifies the loss function
+<span class="cstat-no" title="statement not covered" >        dl.costTensor = this.getCostFunction(options.loss);</span>
+&nbsp;
+        // TODO: use Optimizer class .type here:
+<span class="cstat-no" title="statement not covered" >        dl.optimizer = this.getOptimizer(options.optimizer);</span>
+        
+        // Session
+<span class="cstat-no" title="statement not covered" >        dl.session = new Session(dl.graph, dl.math);</span>
+        
+<span class="cstat-no" title="statement not covered" >        this.stats.compiled = true;</span>
+    }
+&nbsp;
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    async fit(options:{</span>
+        input: any[],
+        target: any[],
+&nbsp;
+        batchSize?: number,
+        epochs?: number,
+        verbose?: number,
+        validationSplit?: number,
+        shuffle?: boolean // TODO: use this -- now always Shuffles
+    }){
+<span class="cstat-no" title="statement not covered" >        this.log('Start fit');</span>
+        // Sanity check
+<span class="cstat-no" title="statement not covered" >        if(!options.input.length || !options.target.length) <span class="cstat-no" title="statement not covered" >throw('Missing input/target Arrays.');</span></span>
+        let <span class="cstat-no" title="statement not covered" >inputDims       = this.getDims(options.input[0]);</span>
+        let <span class="cstat-no" title="statement not covered" >modelInputDims  = this.model[0].units as number[];</span>
+        let <span class="cstat-no" title="statement not covered" >targetDims      = this.getDims(options.target[0]);</span>
+        let <span class="cstat-no" title="statement not covered" >modelTargetDims = this.model[this.model.length-1].units as number[];</span>
+<span class="cstat-no" title="statement not covered" >        if(!this.isEqual(inputDims, modelInputDims)) <span class="cstat-no" title="statement not covered" >throw(`Wrong dimensions for inputs: model has shape [${modelInputDims}], but input has shape [${inputDims}].`);</span></span>
+<span class="cstat-no" title="statement not covered" >        if(!this.isEqual(targetDims, modelTargetDims)) <span class="cstat-no" title="statement not covered" >throw(`Wrong dimensions for targets: model has shape [${modelTargetDims}], but target has shape [${targetDims}].`);</span></span>
+        
+        // Defaults
+<span class="cstat-no" title="statement not covered" >        options.batchSize = options.batchSize || 32;</span>
+<span class="cstat-no" title="statement not covered" >        options.epochs = options.epochs || 1;</span>
+<span class="cstat-no" title="statement not covered" >        options.verbose = options.verbose || 1;</span>
+<span class="cstat-no" title="statement not covered" >        options.validationSplit = options.validationSplit || 0.0;</span>
+<span class="cstat-no" title="statement not covered" >        if (typeof(options.shuffle) == 'undefined') <span class="cstat-no" title="statement not covered" >options.shuffle = true;</span></span>
+&nbsp;
+        const <span class="cstat-no" title="statement not covered" >timeStart: number = new Date().valueOf();</span>
+&nbsp;
+        const <span class="cstat-no" title="statement not covered" >inputArray = options.input.map(<span class="fstat-no" title="function not covered" >el </span>=&gt; <span class="cstat-no" title="statement not covered" >this.convertToDeeplearnArray(el))</span>;</span>
+        const <span class="cstat-no" title="statement not covered" >targetArray = options.target.map(<span class="fstat-no" title="function not covered" >el </span>=&gt; <span class="cstat-no" title="statement not covered" >Array1D.new(el))</span>;</span>
+        const <span class="cstat-no" title="statement not covered" >shuffledInputProviderBuilder =</span>
+            new InCPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]);
+        const <span class="cstat-no" title="statement not covered" >[inputProvider, targetProvider] =</span>
+            shuffledInputProviderBuilder.getInputProviders();
+        const <span class="cstat-no" title="statement not covered" >feedEntries = [</span>
+            {tensor: this.deeplearn.inputTensor, data: inputProvider},
+            {tensor: this.deeplearn.targetTensor, data: targetProvider}
+        ];
+&nbsp;
+        // TODO: check Keras, move to an option?
+        let <span class="cstat-no" title="statement not covered" >logInterval = 20;</span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >        await this.deeplearn.math.scope(<span class="fstat-no" title="function not covered" >async () =&gt; {</span></span></span>
+            for (let <span class="cstat-no" title="statement not covered" >i = 0;</span> i &lt; options.epochs<span class="cstat-no" title="statement not covered" >; <span class="cstat-no" title="statement not covered" >i++)</span> {</span>
+<span class="cstat-no" title="statement not covered" >                this.stats.epochsRun = i; </span>// TODO: enable pause &amp; continue
+<span class="cstat-no" title="statement not covered" >                this.stats.cost = this.deeplearn.session.train(</span>
+                    this.deeplearn.costTensor, feedEntries, 4, this.deeplearn.optimizer, CostReduction.MEAN); //TODO: costreduction must be configurable!
+                if(<span class="cstat-no" title="statement not covered" >(i % logInterval) === 0)</span>{
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >                    this.stats.</span>loss = <span class="cstat-no" title="statement not covered" >await this.stats.cost.val();</span></span>
+<span class="cstat-no" title="statement not covered" >                    this.log(`Epoch: ${i}/${options.epochs}, Loss: ${this.stats.loss}.`);</span>
+                }
+            }
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" >            this.stats.</span>loss = <span class="cstat-no" title="statement not covered" >await this.stats.cost.val();</span></span>
+        });
+&nbsp;
+        const <span class="cstat-no" title="statement not covered" >timeEnd: number = new Date().valueOf();</span>
+        const <span class="cstat-no" title="statement not covered" >time = timeEnd - timeStart;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        this.log(`Epoch: ${options.epochs}/${options.epochs}, Loss: ${this.stats.loss}.`);</span>
+<span class="cstat-no" title="statement not covered" >        this.log(`Took ${time}ms.`);</span>
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+&nbsp;
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    async predict(options:{</span>
+        input: any[],
+        batchSize?: number,
+        verbose?: number
+    }):Promise&lt;Float32Array | Int32Array | Uint8Array&gt;{
+<span class="cstat-no" title="statement not covered" >        options.batchSize = options.batchSize || 32;</span>
+<span class="cstat-no" title="statement not covered" >        options.verbose = options.verbose || 1;</span>
+&nbsp;
+        const <span class="cstat-no" title="statement not covered" >inputArray = this.convertToDeeplearnArray(options.input);</span>
+        const <span class="cstat-no" title="statement not covered" >val = this.deeplearn.session.eval(this.deeplearn.predictionTensor, </span>
+            [{tensor: this.deeplearn.inputTensor, data: inputArray}]);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return val.data();</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    private log(<span class="cstat-no" title="statement not covered" >...msg:string[])</span>: void{</span>
+<span class="cstat-no" title="statement not covered" >        console.log(msg);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    private convertToDeeplearnArray(arr: number[])</span>: NDArray{
+<span class="cstat-no" title="statement not covered" >        let dims = this.getDims(arr);</span>
+<span class="cstat-no" title="statement not covered" >        let dlArray;</span>
+<span class="cstat-no" title="statement not covered" >        switch(dims.length){</span>
+            case 1:
+<span class="cstat-no" title="statement not covered" >            dlArray = Array1D.new(arr);</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+            case 2:
+<span class="cstat-no" title="statement not covered" >            dlArray = Array2D.new(dims as [number,number], arr);</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+            case 3:
+<span class="cstat-no" title="statement not covered" >            dlArray = Array3D.new(dims as [number,number,number], arr);</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+            case 4:
+<span class="cstat-no" title="statement not covered" >            dlArray = Array4D.new(dims as [number,number,number,number], arr);</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+            default:
+<span class="cstat-no" title="statement not covered" >            throw(`Unknown dimensionality for array: ${arr}`)</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return dlArray;</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    private getCostFunction(loss: Loss)</span>{
+<span class="cstat-no" title="statement not covered" >        let dl = this.deeplearn;</span>
+<span class="cstat-no" title="statement not covered" >        switch(loss.type.toUpperCase()){</span>
+            case 'MEANSQUARED':
+<span class="cstat-no" title="statement not covered" >            return this.deeplearn.graph.meanSquaredCost(dl.targetTensor, dl.predictionTensor);</span>
+            case 'SOFTMAXCROSSENTROPY':
+<span class="cstat-no" title="statement not covered" >            return this.deeplearn.graph.softmaxCrossEntropyCost(dl.targetTensor, dl.predictionTensor);</span>
+            default:
+<span class="cstat-no" title="statement not covered" >            throw ('Unknown Cost function: '+loss.type);</span>
+        }
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    private getOptimizer(optimizer: Optimizer)</span>{
+<span class="cstat-no" title="statement not covered" >        switch(optimizer.type.toUpperCase()){</span>
+            case 'SGD':
+<span class="cstat-no" title="statement not covered" >            return new SGDOptimizer(optimizer.options.learningRate);</span>
+&nbsp;
+            case 'ADAGRAD':
+<span class="cstat-no" title="statement not covered" >            return new AdagradOptimizer(optimizer.options.learningRate);</span>
+&nbsp;
+            case 'ADADELTA':
+<span class="cstat-no" title="statement not covered" >            return new AdadeltaOptimizer(optimizer.options.learningRate, optimizer.options.gamma);</span>
+&nbsp;
+            case 'ADAM':
+<span class="cstat-no" title="statement not covered" >            return new AdamOptimizer(optimizer.options.learningRate, optimizer.options.beta1, optimizer.options.beta2);</span>
+&nbsp;
+            case 'ADAMAX':
+<span class="cstat-no" title="statement not covered" >            return new AdamaxOptimizer(optimizer.options.learningRate, optimizer.options.beta1, optimizer.options.beta2);</span>
+&nbsp;
+            case 'MOMENTUM':
+<span class="cstat-no" title="statement not covered" >            return new MomentumOptimizer(optimizer.options.learningRate, optimizer.options.momentum);</span>
+&nbsp;
+            default:
+<span class="cstat-no" title="statement not covered" >            throw ('Unknown Optimizer: '+optimizer.type);</span>
+        }
+    }
+&nbsp;
+&nbsp;
+<span class="fstat-no" title="function not covered" >    private convertToDeeplearnActivation(x:Tensor, kerasActivation: Layer)</span>:Tensor{
+<span class="cstat-no" title="statement not covered" >        switch(kerasActivation.type.toUpperCase()){</span>
+            case 'SOFTMAX':
+<span class="cstat-no" title="statement not covered" >            return (this.deeplearn.graph.softmax(x));</span>
+            case 'ELU':
+<span class="cstat-no" title="statement not covered" >            return (this.deeplearn.graph.elu(x));</span>
+            case 'RELU':
+<span class="cstat-no" title="statement not covered" >            return (this.deeplearn.graph.relu(x));</span>
+            case 'TANH':
+<span class="cstat-no" title="statement not covered" >            return (this.deeplearn.graph.tanh(x));</span>
+            case 'SIGMOID':
+<span class="cstat-no" title="statement not covered" >            return (this.deeplearn.graph.sigmoid(x));</span>
+            
+            case 'LEAKYRELU':
+<span class="cstat-no" title="statement not covered" >            return this.deeplearn.graph.leakyRelu(x, kerasActivation.options.alpha);</span>
+&nbsp;
+            case 'LINEAR':
+            // OMIT (linear does nothing)
+<span class="cstat-no" title="statement not covered" >            return (null);</span>
+&nbsp;
+            // Unsupported - could not find in deeplearn.js
+            case 'SOFTPLUS':
+            case 'SOFTSIGN':
+            case 'SELU':
+<span class="cstat-no" title="statement not covered" >            throw ('Unsupported Activation type: '+kerasActivation.type);</span>
+            default:
+<span class="cstat-no" title="statement not covered" >            throw ('Unknown Activation type: '+kerasActivation.type);</span>
+        }
+    }
+&nbsp;
+    // TODO: check prevlayer vs layer???
+&nbsp;
+<span class="fstat-no" title="function not covered" >    private convertToDeeplearnConv2D(</span>
+        prevLayer: Tensor, 
+        fieldSize:number, stride:number, zeroPad:number, outputDepth:number,
+        inputShape: number[], index: number): Tensor {
+<span class="cstat-no" title="statement not covered" >        const wShape: [number, number, number, number] =</span>
+            [fieldSize, fieldSize, inputShape[2], outputDepth];
+<span class="cstat-no" title="statement not covered" >        let w: Array4D;</span>
+<span class="cstat-no" title="statement not covered" >        let b: Array1D;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        w = Array4D.randTruncatedNormal(wShape, 0, 0.1);</span>
+<span class="cstat-no" title="statement not covered" >        b = Array1D.zeros([outputDepth]);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        const wTensor = this.deeplearn.graph.variable(`conv2d-${index}-w`, w);</span>
+<span class="cstat-no" title="statement not covered" >        const bTensor = this.deeplearn.graph.variable(`conv2d-${index}-b`, b);</span>
+<span class="cstat-no" title="statement not covered" >        return this.deeplearn.graph.conv2d(</span>
+            prevLayer, wTensor, bTensor, fieldSize, outputDepth,
+            stride, zeroPad);
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    private getDims(arr: number[] | number)</span>: number[]{
+<span class="cstat-no" title="statement not covered" >        return arr instanceof Array ? [arr.length].concat(this.getDims(arr[0])) : [];</span>
+    }
+<span class="fstat-no" title="function not covered" >    private isEqual(arr1: any[], arr2: any[])</span>: boolean{
+<span class="cstat-no" title="statement not covered" >        return (JSON.stringify(arr1) == JSON.stringify(arr2));</span>
+    }
+  
+&nbsp;
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Dec 19 2017 11:46:57 GMT+0200 (EET)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

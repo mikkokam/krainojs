@@ -1,5 +1,8 @@
 module.exports = function(config) {
   config.set({
+    autoWatch: false,
+    singleRun: true,
+    logLevel: config.LOG_INFO,
     frameworks: ['jasmine', 'karma-typescript'],
     files: [{pattern: 'src/**/*.ts'}],
     preprocessors: {

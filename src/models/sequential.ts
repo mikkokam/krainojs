@@ -12,15 +12,15 @@ export class Sequential{
     public model: Layer[] = [];
 
     public stats: {
+        compiled: boolean,
         cost: Scalar,
         loss: number,
-        error: number,
-        epochs: number
+        epochsRun: number
     } = {
+        compiled: false,
         cost: null,
-        loss: 0,
-        error: 1,
-        epochs: 0
+        loss: 1,
+        epochsRun: 0
     }
 
     private deeplearn: {
@@ -35,10 +35,12 @@ export class Sequential{
     } = {};
 
     constructor(model?: Layer[]){
+        this.stats.compiled = false;
         if(model) model.forEach(layer => this.add(layer));
     }
 
     add(layer: Layer){
+        this.stats.compiled = false;
         this.model.push(layer);
     }
 
@@ -134,7 +136,8 @@ export class Sequential{
         
         // Session
         dl.session = new Session(dl.graph, dl.math);
-        // console.log(dl.graph);
+        
+        this.stats.compiled = true;
     }
 
 
@@ -183,6 +186,7 @@ export class Sequential{
         let logInterval = 20;
         await this.deeplearn.math.scope(async () => {
             for (let i = 0; i < options.epochs; i++) {
+                this.stats.epochsRun = i; // TODO: enable pause & continue
                 this.stats.cost = this.deeplearn.session.train(
                     this.deeplearn.costTensor, feedEntries, 4, this.deeplearn.optimizer, CostReduction.MEAN); //TODO: costreduction must be configurable!
                 if((i % logInterval) === 0){
@@ -206,7 +210,7 @@ export class Sequential{
         input: any[],
         batchSize?: number,
         verbose?: number
-    }){
+    }):Promise<Float32Array | Int32Array | Uint8Array>{
         options.batchSize = options.batchSize || 32;
         options.verbose = options.verbose || 1;
 

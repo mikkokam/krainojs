@@ -11,6 +11,7 @@
     "jasmine": "^2.8.0",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.1",
     "karma-typescript": "^3.0.9",
     "rimraf": "^2.6.2",
     "ts-node": "^4.0.1",

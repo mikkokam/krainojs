@@ -1,21 +1,19 @@
-import { Sequential } from "./models/sequential";
-import { Dense, Activation, Input, Output } from "./layers";
-
+import { Sequential } from "../src/models/sequential";
+import { Dense, Activation, Input, Output } from "../src/layers";
 
 let model = new Sequential();
+
+
 model.add(new Input(2));
-model.add(new Dense(32,{activation: 'relu'}));// test Activation in layer definition
-model.add(new Dense(16)); // Test one with a separate Activation layer
+model.add(new Dense(16,{activation: 'relu'}));// test Activation in layer definition
+model.add(new Dense(8)); // Test one with a separate Activation layer
 model.add(new Activation('relu'));
 model.add(new Output(1));
-
-console.log(model);
 
 model.compile({
     optimizer: 'Adamax',
     loss: 'meanSquared'
-});
-
+})
 
 model.fit({
     input: [[0,0],[0,1],[1,0],[1,1]],

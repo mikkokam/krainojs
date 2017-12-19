@@ -1,7 +1,7 @@
-import { Sequential } from "./models/sequential";
-import { Dense, Activation } from "./layers";
-import { Input, Output, Flatten } from "./layers";
-import { Reshape } from "./layers/reshape";
+import { Sequential } from "../src/models/sequential";
+import { Dense, Activation } from "../src/layers";
+import { Input, Output, Flatten } from "../src/layers";
+import { Reshape } from "../src/layers/reshape";
 
 
 let model = new Sequential();
