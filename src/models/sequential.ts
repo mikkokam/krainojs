@@ -81,6 +81,7 @@ export class Sequential{
         // Init deeplearn.js model
         let dl = this.deeplearn;
         dl.math = (typeof window === 'undefined') ? new NDArrayMathCPU() : new NDArrayMathGPU();
+        console.log(dl.math);
         dl.graph = new Graph();
         
         // This tensor contains the input
@@ -199,7 +200,7 @@ export class Sequential{
         // Defaults
         options.batchSize = options.batchSize || 32;
         options.epochs = options.epochs || 1;
-        options.log = options.log || 10;
+        if (typeof(options.log) == 'undefined') options.log = 10;
         options.validationSplit = options.validationSplit || 0.0;
         if (typeof(options.shuffle) == 'undefined') options.shuffle = true;
 
@@ -220,8 +221,8 @@ export class Sequential{
             for (let i = 0; i < options.epochs; i++) {
                 this.stats.epochsRun = i; // TODO: enable pause & continue
                 this.stats.cost = this.deeplearn.session.train(
-                    this.deeplearn.costTensor, feedEntries, 4, this.deeplearn.optimizer, CostReduction.MEAN); //TODO: costreduction must be configurable!
-                if((options.log && i % options.log) === 0){
+                    this.deeplearn.costTensor, feedEntries, 4, this.deeplearn.optimizer, CostReduction.MEAN); //TODO: costreduction must be configurable?
+                if((options.log > 0 && i % options.log) === 0){
                     this.stats.loss = await this.stats.cost.val();
                     this.log(`Epoch: ${i}/${options.epochs}, Loss: ${this.stats.loss}.`);
                 }

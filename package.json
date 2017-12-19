@@ -27,7 +27,7 @@
   "scripts": {
     "test": "karma start",
     "clean": "rimraf dist/*",
-    "build": "tsc",
+    "build": "rimraf dist/* && parcel src/index.ts",
     "docs": "typedoc --mode modules src/ --out docs/ --theme minimal"
   },
   "author": "Mikko Kamarainen, mikko@goodhum.com, Goodhum, https://goodhum.com",

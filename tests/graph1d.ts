@@ -15,7 +15,8 @@ model.compile();
 model.fit({
     input: [[0,0],[0,1],[1,0],[1,1]],
     target: [[0],[1],[1],[1]],
-    epochs: 500
+    epochs: 500,
+    log: 25
 })
 .then(() => {
     return model.predict({
