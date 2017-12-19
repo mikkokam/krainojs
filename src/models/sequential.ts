@@ -1,4 +1,7 @@
-import { Layer, Loss, Optimizer } from '../';
+import { Layer } from '../layers';
+import { Optimizer } from '../optimizers';
+import { Loss } from '../losses';
+
 
 import { Graph, Session, CostReduction, NDArrayMathCPU, NDArrayMathGPU, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
 
@@ -47,8 +50,6 @@ export class Sequential{
     constructor(model?: Layer[]){
         this.stats.compiled = false;
         if(model) model.forEach(layer => this.add(layer));
-
-        console.log(DeeplearnConverter.getDims([ [3,5], [2,8], [17,2] ]));
     }
 
     /**
