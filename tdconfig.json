@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "lib": [
+            "es6",
+            "dom"
+        ]
+    },
+    "include": [
+            "globals.d.ts",
+            "src/models.ts"
+        ],
+    "exclude": [
+            "node_modules",
+            "src/**/*.test.ts"
+        ]
+}

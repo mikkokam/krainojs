@@ -10,10 +10,7 @@ model.add(new Dense(8)); // Test one with a separate Activation layer
 model.add(new Activation('relu'));
 model.add(new Output(1));
 
-model.compile({
-    optimizer: 'Adamax',
-    loss: 'meanSquared'
-})
+model.compile();
 
 model.fit({
     input: [[0,0],[0,1],[1,0],[1,1]],

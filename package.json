@@ -15,13 +15,15 @@
     "karma-typescript": "^3.0.9",
     "rimraf": "^2.6.2",
     "ts-node": "^4.0.1",
+    "typedoc": "^0.9.0",
     "typescript": "^2.6.2"
   },
   "scripts": {
     "test": "karma start",
     "precompile": "npm run clean",
     "clean": "rimraf dist/*",
-    "build": "tsc"
+    "build": "tsc",
+    "docs": "typedoc --mode modules src/models/sequential.ts --out docs/ --excludeExternals"
   },
   "author": "Mikko Kamarainen, mikko@goodhum.com, Goodhum, https://goodhum.com",
   "license": "MIT"

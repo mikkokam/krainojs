@@ -10,6 +10,12 @@ import { DeeplearnConverter, DeeplearnModel } from './deeplearn-converter';
 export class Sequential{
     public model: Layer[] = [];
 
+    /**
+     * @param stats.compiled The model is compiled succesfully.
+     * @param stats.cost Method .fit() will save progress here as a Scalar. Use stats.loss instead.
+     * @param stats.loss The loss of the model as a float (0...1). Use this to display the error.
+     * @param stats.epochsRun The number of iterations already run.
+     */
     public stats: {
         compiled: boolean,
         cost: Scalar,
@@ -49,15 +55,15 @@ export class Sequential{
 
     /**
      * Configures the model for training.
-     * @param options Optional options object:
-     *      optimizer: string (name of optimizer) or Optimizer object. See optimizers.
-     *      loss: string (name of loss function) or Loss object. See losses.
+     * @param options.optimizer string (name of optimizer) or Optimizer object. See optimizers.
+     * @param options.loss string (name of loss function) or Loss object. See losses.
      */
-    compile(options: {
+    compile(options?: {
         optimizer?: Optimizer | string,
         loss?: Loss | string
     }):void{
         // Defaults
+        options = options || {};
         options.optimizer = options.optimizer || 'SGD';
         options.loss = options.loss || 'meanSquared';
         // String or an Object accepted
@@ -153,14 +159,13 @@ export class Sequential{
 
     /**
      * Trains the model for a fixed number of epochs: iterations on the dataset.
-     * @param options Mandatory options object:
-     *      input: Array of training data. Mandatory.
-     *      target: Array of target (label) data. Mandatory.
-     *      batchSize: Number of samples per gradient update. If unspecified, it will default to 32.
-     *      epochs: Number of epochs to train. Each epoch is an iteration over the entire input and target data provided. If unspecified, it will default to 1.
-     *      log: Number of epochs to run between logging. 0 = silent. 10 = log every 10 epochs. If unspecified, it will default to 10.
-     *      validationSplit: TO BE IMPLEMENTED. Float between 0 and 1. Fraction of the training data to be used as validation data. The model will set apart this fraction of the training data, will not train on it, and will evaluate the loss and any model metrics on this data at the end of each epoch. The validation data is selected from the last samples in the x and y data provided, before shuffling. Default: 0 == no validation.
-     *      shuffle: Boolean (whether to shuffle the training data before each epoch). If unspecified, it will default to true.
+     * @param options.input Array of training data. Mandatory.<br>
+     * @param options.target Array of target (label) data. Mandatory.<br>
+     * @param options.batchSize Number of samples per gradient update. If unspecified, it will default to 32.<br>
+     * @param options.epochs Number of epochs to train. Each epoch is an iteration over the entire input and target data provided. If unspecified, it will default to 1.<br>
+     * @param options.log Number of epochs to run between logging. 0 = silent. 10 = log every 10 epochs. If unspecified, it will default to 10.<br>
+     * @param options.validationSplit TO BE IMPLEMENTED. Float between 0 and 1. Fraction of the training data to be used as validation data. The model will set apart this fraction of the training data, will not train on it, and will evaluate the loss and any model metrics on this data at the end of each epoch. The validation data is selected from the last samples in the x and y data provided, before shuffling. Default: 0 == no validation.<br>
+     * @param options.shuffle Boolean (whether to shuffle the training data before each epoch). If unspecified, it will default to true.<br>
      * @returns Promise, resolving to true once the model is trained.
      */
     async fit(options:{
@@ -227,10 +232,9 @@ export class Sequential{
 
     /**
      * Generates output predictions for the input samples.
-     * @param options Mandatory options object:
-     *      input: the input data. Mandatory.
-     *      batchSize: TO BE IMPLEMENTED.
-     *      verbose: TO BE IMPLEMENTED.
+     * @param options.input The input data; an Array of inputs.
+     * @param options.batchSize TO BE IMPLEMENTED.
+     * @param options.verbose TO BE IMPLEMENTED.
      */
     async predict(options:{
         input: any[],

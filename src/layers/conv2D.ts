@@ -5,7 +5,6 @@ export interface Options {
     stride?: number,
     zeroPad?: number
 };
-// Deeplearn.js needs -- x: Tensor, w: Tensor, b: Tensor, fieldSize: number, outputDepth: number, stride?: number, zeroPad?: number
 export class Conv2D implements Layer{
     public units: number; // fieldSize
     public options: Options = {
