@@ -18,6 +18,6 @@
     "compile": "npm run compile:ts",
     "compile:ts": "tsc --outDir ./dist --module commonjs ./src/index.ts"
   },
-  "author": "Mikko Kamarainen, Goodhum, https://goodhum.com",
+  "author": "Mikko Kamarainen, mikko@goodhum.com, Goodhum, https://goodhum.com",
   "license": "MIT"
 }
