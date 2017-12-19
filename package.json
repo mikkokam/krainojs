@@ -1,6 +1,6 @@
 {
-  "name": "kerasjs",
-  "version": "1.0.0",
+  "name": "krainojs",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "dependencies": {
@@ -19,5 +19,5 @@
     "compile:ts": "tsc --outDir ./dist --module commonjs ./src/index.ts"
   },
   "author": "Mikko Kamarainen, Goodhum, https://goodhum.com",
-  "license": "ISC"
+  "license": "MIT"
 }
