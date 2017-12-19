@@ -4,6 +4,11 @@ export interface Options{
     alpha: number; // LeakyReLU
 }
 
+// TODO: move static types to enums everywhere
+export enum LayerType {
+    Linear, Softmax, ReLU, LeakyReLU, ELU, Tanh, Sigmoid
+};
+
 export class Activation implements Layer{
 
     // see also Sequential class conversion fn
