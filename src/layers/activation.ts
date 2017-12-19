@@ -1,6 +1,6 @@
 import { Layer } from './layer';
 
-interface Options{
+export interface Options{
     alpha: number; // LeakyReLU
 }
 
@@ -10,7 +10,7 @@ export class Activation implements Layer{
     public static types = ['Linear','Softmax','ReLU','LeakyReLU','ELU','Tanh','Sigmoid'];
 
     public type: string = 'Linear';
-    public units;
+    public units: number;
     public options: Options = {
         alpha: 0.3
     };

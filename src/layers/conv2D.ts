@@ -1,7 +1,6 @@
 import { Layer } from './layer';
-import { Activation } from './activation';
 
-interface Options {
+export interface Options {
     outputDepth: number,
     stride?: number,
     zeroPad?: number

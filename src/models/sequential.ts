@@ -1,5 +1,4 @@
-import { Layer, Dense, Loss, Optimizer } from '../';
-import { Activation } from '../layers/activation';
+import { Layer, Loss, Optimizer } from '../';
 
 import { Graph, Tensor, Session, CostReduction, NDArrayMath, NDArrayMathCPU, NDArrayMathGPU, SGDOptimizer, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
 import { AdamOptimizer, AdamaxOptimizer, AdadeltaOptimizer, AdagradOptimizer, MomentumOptimizer } from 'deeplearn';
@@ -61,22 +60,22 @@ export class Sequential{
         
         // This tensor contains the input
         if(this.model[0].constructor.name !== 'Input') throw ('First layer must be an Input layer.');
-        let inputDims = this.model[0].units;
-        dl.inputTensor = dl.graph.placeholder('input', inputDims as number[]);
+        let inputDims:number[] = this.model[0].units as number[];
+        dl.inputTensor = dl.graph.placeholder('input', inputDims);
         
         // This tensor contains the target
         if(this.model[this.model.length-1].constructor.name !== 'Output') throw ('Last layer must be an Output layer.')
-        let outputDims = this.model[this.model.length-1].units;
-        dl.targetTensor = dl.graph.placeholder('output', outputDims as number[]);
+        let outputDims: number[] = this.model[this.model.length-1].units as number[];
+        dl.targetTensor = dl.graph.placeholder('output', outputDims);
 
         // Hidden layers
         let prevLayer = dl.inputTensor;
-        let prevLayerDims = inputDims;
+        let prevLayerDims: number[] = inputDims;
         for(let i=1; i<(this.model.length-1);i++){
             let layer = this.model[i];
             switch(layer.constructor.name){
                 case 'Dense':
-                prevLayerDims = layer.units;
+                prevLayerDims = layer.units as number[];
                 prevLayer = dl.graph.layers.dense(
                     `layer-${i}`, prevLayer, layer.units as number);
                 // Use embedded Activation if available
@@ -92,12 +91,12 @@ export class Sequential{
                 break;
 
                 case 'MaxPooling2D':
-                prevLayerDims = layer.units;
+                prevLayerDims = layer.units as number[];
                 prevLayer = dl.graph.maxPool(prevLayer, layer.units as number, layer.options.stride, layer.options.zeroPad);
                 break;
                 
                 case 'Conv2D':
-                prevLayerDims = layer.units;
+                prevLayerDims = layer.units as number[];
                 prevLayer = this.convertToDeeplearnConv2D(
                     prevLayer,
                     layer.units as number, layer.options.stride, layer.options.zeroPad, layer.options.outputDepth,
@@ -125,7 +124,7 @@ export class Sequential{
         }
 
         // This tensor contains the predictions
-        dl.predictionTensor = dl.graph.layers.dense('prediction', prevLayer, outputDims[0] as number);
+        dl.predictionTensor = dl.graph.layers.dense('prediction', prevLayer, outputDims[0]);
 
         // Add a cost tensor that specifies the loss function
         dl.costTensor = this.getCostFunction(options.loss);
@@ -218,7 +217,7 @@ export class Sequential{
         return val.data();
     }
 
-    private log(...msg){
+    private log(...msg:string[]): void{
         console.log(msg);
     }
 
@@ -285,12 +284,15 @@ export class Sequential{
     private convertToDeeplearnActivation(x:Tensor, kerasActivation: Layer):Tensor{
         switch(kerasActivation.type.toUpperCase()){
             case 'SOFTMAX':
+            return (this.deeplearn.graph.softmax(x));
             case 'ELU':
+            return (this.deeplearn.graph.elu(x));
             case 'RELU':
+            return (this.deeplearn.graph.relu(x));
             case 'TANH':
+            return (this.deeplearn.graph.tanh(x));
             case 'SIGMOID':
-            // SAME NAMES
-            return (this.deeplearn.graph[kerasActivation.type.toLowerCase()](x));
+            return (this.deeplearn.graph.sigmoid(x));
             
             case 'LEAKYRELU':
             return this.deeplearn.graph.leakyRelu(x, kerasActivation.options.alpha);

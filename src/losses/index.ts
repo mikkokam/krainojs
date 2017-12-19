@@ -1,4 +1,4 @@
-interface Options{
+export interface Options{
     target: any // for softmaxCrossEntropyCost; the target Tensor ---- TODO: add support for this in compile !
 }
 export class Loss{

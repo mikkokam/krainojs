@@ -7,16 +7,20 @@
     "deeplearn": "0.3.13"
   },
   "devDependencies": {
+    "@types/jasmine": "^2.8.2",
+    "jasmine": "^2.8.0",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-typescript": "^3.0.9",
     "rimraf": "^2.6.2",
     "ts-node": "^4.0.1",
     "typescript": "^2.6.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
     "precompile": "npm run clean",
     "clean": "rimraf dist/*",
-    "compile": "npm run compile:ts",
-    "compile:ts": "tsc --outDir ./dist --module commonjs ./src/index.ts"
+    "build": "tsc"
   },
   "author": "Mikko Kamarainen, mikko@goodhum.com, Goodhum, https://goodhum.com",
   "license": "MIT"

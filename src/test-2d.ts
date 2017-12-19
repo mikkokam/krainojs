@@ -1,5 +1,5 @@
 import { Sequential } from "./models/sequential";
-import { Layer, Dense, Activation, MaxPooling2D } from "./layers";
+import { Dense, Activation } from "./layers";
 import { Input, Output, Flatten } from "./layers";
 import { Reshape } from "./layers/reshape";
 

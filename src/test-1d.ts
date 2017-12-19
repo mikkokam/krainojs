@@ -1,5 +1,5 @@
 import { Sequential } from "./models/sequential";
-import { Layer, Dense, Activation, MaxPooling2D, Input, Output } from "./layers";
+import { Dense, Activation, Input, Output } from "./layers";
 
 
 let model = new Sequential();

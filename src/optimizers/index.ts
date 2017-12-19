@@ -1,4 +1,4 @@
-interface Options{
+export interface Options{
     learningRate?:number,
     beta1?:number,
     beta2?:number,
