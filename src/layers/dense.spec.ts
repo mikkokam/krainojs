@@ -20,4 +20,8 @@ describe("Dense", function () {
         expect(activation).toEqual(jasmine.any(Activation));
         expect(activation.type).toEqual('relu');
     });
+    it("should not accept unknown Activation types", function () {
+        let type = 'nosuchlayer';
+        expect( function(){ new Dense(2,{activation: type}); } ).toThrow();
+    });
 });

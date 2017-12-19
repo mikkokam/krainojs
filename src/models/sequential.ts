@@ -1,12 +1,11 @@
 import { Layer, Loss, Optimizer } from '../';
 
-import { Graph, Tensor, Session, CostReduction, NDArrayMath, NDArrayMathCPU, NDArrayMathGPU, SGDOptimizer, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
-import { AdamOptimizer, AdamaxOptimizer, AdadeltaOptimizer, AdagradOptimizer, MomentumOptimizer } from 'deeplearn';
-import { Array4D, Array2D, Array3D, NDArray } from 'deeplearn/dist/math/ndarray';
+import { Graph, Session, CostReduction, NDArrayMathCPU, NDArrayMathGPU, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
 
+import { DeeplearnConverter, DeeplearnModel } from './deeplearn-converter';
 
 /**
- * Linear stack of layers.
+ * The Sequential model is a linear stack of layers.
  */
 export class Sequential{
     public model: Layer[] = [];
@@ -23,31 +22,41 @@ export class Sequential{
         epochsRun: 0
     }
 
-    private deeplearn: {
-        graph?: Graph,
-        inputTensor?: Tensor,
-        targetTensor?: Tensor,
-        predictionTensor?: Tensor,
-        costTensor?: Tensor,
-        session?: Session,
-        math?: NDArrayMath,
-        optimizer?: any
-    } = {};
+    private deeplearn: DeeplearnModel = {}
 
+
+
+    /**
+     * Constructor - a new Sequential model.
+     * @param model Optionally, you can provide the Layers as an Array.
+     *      Or, you can instantiate an empty model with new Sequential() and add layers via the .add() method.
+     */
     constructor(model?: Layer[]){
         this.stats.compiled = false;
         if(model) model.forEach(layer => this.add(layer));
+
+        console.log(DeeplearnConverter.getDims([ [3,5], [2,8], [17,2] ]));
     }
 
-    add(layer: Layer){
+    /**
+     * Add a layer to the Sequential model.
+     * @param layer The layer to add
+     */
+    add(layer: Layer):void{
         this.stats.compiled = false;
         this.model.push(layer);
     }
 
+    /**
+     * Configures the model for training.
+     * @param options Optional options object:
+     *      optimizer: string (name of optimizer) or Optimizer object. See optimizers.
+     *      loss: string (name of loss function) or Loss object. See losses.
+     */
     compile(options: {
         optimizer?: Optimizer | string,
         loss?: Loss | string
-    }){
+    }):void{
         // Defaults
         options.optimizer = options.optimizer || 'SGD';
         options.loss = options.loss || 'meanSquared';
@@ -82,13 +91,13 @@ export class Sequential{
                     `layer-${i}`, prevLayer, layer.units as number);
                 // Use embedded Activation if available
                 if(layer.options.activation) {
-                    let activation = this.convertToDeeplearnActivation(prevLayer, layer.options.activation);
+                    let activation = DeeplearnConverter.convertToDeeplearnActivation(this.deeplearn, prevLayer, layer.options.activation);
                     if(activation) prevLayer = activation;
                 }
                 break;
                 
                 case 'Activation':
-                let activation = this.convertToDeeplearnActivation(prevLayer, layer);
+                let activation = DeeplearnConverter.convertToDeeplearnActivation(this.deeplearn, prevLayer, layer);
                 if(activation) prevLayer = activation;
                 break;
 
@@ -99,14 +108,15 @@ export class Sequential{
                 
                 case 'Conv2D':
                 prevLayerDims = layer.units as number[];
-                prevLayer = this.convertToDeeplearnConv2D(
+                prevLayer = DeeplearnConverter.convertToDeeplearnConv2D(
+                    this.deeplearn,
                     prevLayer,
                     layer.units as number, layer.options.stride, layer.options.zeroPad, layer.options.outputDepth,
                     prevLayerDims as number[], i
                 );
                  // Use embedded Activation if available
                  if(layer.options.activation) {
-                    let activation = this.convertToDeeplearnActivation(prevLayer, layer.options.activation);
+                    let activation = DeeplearnConverter.convertToDeeplearnActivation(this.deeplearn, prevLayer, layer.options.activation);
                     if(activation) prevLayer = activation;
                 }
                 break;
@@ -129,10 +139,10 @@ export class Sequential{
         dl.predictionTensor = dl.graph.layers.dense('prediction', prevLayer, outputDims[0]);
 
         // Add a cost tensor that specifies the loss function
-        dl.costTensor = this.getCostFunction(options.loss);
+        dl.costTensor = DeeplearnConverter.createCostFunction(dl, options.loss);
 
         // TODO: use Optimizer class .type here:
-        dl.optimizer = this.getOptimizer(options.optimizer);
+        dl.optimizer = DeeplearnConverter.createOptimizer(options.optimizer);
         
         // Session
         dl.session = new Session(dl.graph, dl.math);
@@ -141,37 +151,48 @@ export class Sequential{
     }
 
 
-
+    /**
+     * Trains the model for a fixed number of epochs: iterations on the dataset.
+     * @param options Mandatory options object:
+     *      input: Array of training data. Mandatory.
+     *      target: Array of target (label) data. Mandatory.
+     *      batchSize: Number of samples per gradient update. If unspecified, it will default to 32.
+     *      epochs: Number of epochs to train. Each epoch is an iteration over the entire input and target data provided. If unspecified, it will default to 1.
+     *      log: Number of epochs to run between logging. 0 = silent. 10 = log every 10 epochs. If unspecified, it will default to 10.
+     *      validationSplit: TO BE IMPLEMENTED. Float between 0 and 1. Fraction of the training data to be used as validation data. The model will set apart this fraction of the training data, will not train on it, and will evaluate the loss and any model metrics on this data at the end of each epoch. The validation data is selected from the last samples in the x and y data provided, before shuffling. Default: 0 == no validation.
+     *      shuffle: Boolean (whether to shuffle the training data before each epoch). If unspecified, it will default to true.
+     * @returns Promise, resolving to true once the model is trained.
+     */
     async fit(options:{
         input: any[],
         target: any[],
 
         batchSize?: number,
         epochs?: number,
-        verbose?: number,
+        log?: number,
         validationSplit?: number,
         shuffle?: boolean // TODO: use this -- now always Shuffles
     }){
         this.log('Start fit');
         // Sanity check
         if(!options.input.length || !options.target.length) throw('Missing input/target Arrays.');
-        let inputDims       = this.getDims(options.input[0]);
+        let inputDims       = DeeplearnConverter.getDims(options.input[0]);
         let modelInputDims  = this.model[0].units as number[];
-        let targetDims      = this.getDims(options.target[0]);
+        let targetDims      = DeeplearnConverter.getDims(options.target[0]);
         let modelTargetDims = this.model[this.model.length-1].units as number[];
-        if(!this.isEqual(inputDims, modelInputDims)) throw(`Wrong dimensions for inputs: model has shape [${modelInputDims}], but input has shape [${inputDims}].`);
-        if(!this.isEqual(targetDims, modelTargetDims)) throw(`Wrong dimensions for targets: model has shape [${modelTargetDims}], but target has shape [${targetDims}].`);
+        if(!DeeplearnConverter.isEqual(inputDims, modelInputDims)) throw(`Wrong dimensions for inputs: model has shape [${modelInputDims}], but input has shape [${inputDims}].`);
+        if(!DeeplearnConverter.isEqual(targetDims, modelTargetDims)) throw(`Wrong dimensions for targets: model has shape [${modelTargetDims}], but target has shape [${targetDims}].`);
         
         // Defaults
         options.batchSize = options.batchSize || 32;
         options.epochs = options.epochs || 1;
-        options.verbose = options.verbose || 1;
+        options.log = options.log || 10;
         options.validationSplit = options.validationSplit || 0.0;
         if (typeof(options.shuffle) == 'undefined') options.shuffle = true;
 
         const timeStart: number = new Date().valueOf();
 
-        const inputArray = options.input.map(el => this.convertToDeeplearnArray(el));
+        const inputArray = options.input.map(el => DeeplearnConverter.convertToDeeplearnArray(el));
         const targetArray = options.target.map(el => Array1D.new(el));
         const shuffledInputProviderBuilder =
             new InCPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]);
@@ -182,14 +203,12 @@ export class Sequential{
             {tensor: this.deeplearn.targetTensor, data: targetProvider}
         ];
 
-        // TODO: check Keras, move to an option?
-        let logInterval = 20;
         await this.deeplearn.math.scope(async () => {
             for (let i = 0; i < options.epochs; i++) {
                 this.stats.epochsRun = i; // TODO: enable pause & continue
                 this.stats.cost = this.deeplearn.session.train(
                     this.deeplearn.costTensor, feedEntries, 4, this.deeplearn.optimizer, CostReduction.MEAN); //TODO: costreduction must be configurable!
-                if((i % logInterval) === 0){
+                if((options.log && i % options.log) === 0){
                     this.stats.loss = await this.stats.cost.val();
                     this.log(`Epoch: ${i}/${options.epochs}, Loss: ${this.stats.loss}.`);
                 }
@@ -206,6 +225,13 @@ export class Sequential{
 
     }
 
+    /**
+     * Generates output predictions for the input samples.
+     * @param options Mandatory options object:
+     *      input: the input data. Mandatory.
+     *      batchSize: TO BE IMPLEMENTED.
+     *      verbose: TO BE IMPLEMENTED.
+     */
     async predict(options:{
         input: any[],
         batchSize?: number,
@@ -214,134 +240,19 @@ export class Sequential{
         options.batchSize = options.batchSize || 32;
         options.verbose = options.verbose || 1;
 
-        const inputArray = this.convertToDeeplearnArray(options.input);
+        const inputArray = DeeplearnConverter.convertToDeeplearnArray(options.input);
         const val = this.deeplearn.session.eval(this.deeplearn.predictionTensor, 
             [{tensor: this.deeplearn.inputTensor, data: inputArray}]);
 
         return val.data();
     }
 
+    /**
+     * 
+     * @param msg Utility to log (for debugging).
+     */
     private log(...msg:string[]): void{
         console.log(msg);
     }
-
-    private convertToDeeplearnArray(arr: number[]): NDArray{
-        let dims = this.getDims(arr);
-        let dlArray;
-        switch(dims.length){
-            case 1:
-            dlArray = Array1D.new(arr);
-            break;
-            case 2:
-            dlArray = Array2D.new(dims as [number,number], arr);
-            break;
-            case 3:
-            dlArray = Array3D.new(dims as [number,number,number], arr);
-            break;
-            case 4:
-            dlArray = Array4D.new(dims as [number,number,number,number], arr);
-            break;
-            default:
-            throw(`Unknown dimensionality for array: ${arr}`)
-        }
-        return dlArray;
-    }
-
-    private getCostFunction(loss: Loss){
-        let dl = this.deeplearn;
-        switch(loss.type.toUpperCase()){
-            case 'MEANSQUARED':
-            return this.deeplearn.graph.meanSquaredCost(dl.targetTensor, dl.predictionTensor);
-            case 'SOFTMAXCROSSENTROPY':
-            return this.deeplearn.graph.softmaxCrossEntropyCost(dl.targetTensor, dl.predictionTensor);
-            default:
-            throw ('Unknown Cost function: '+loss.type);
-        }
-    }
-
-    private getOptimizer(optimizer: Optimizer){
-        switch(optimizer.type.toUpperCase()){
-            case 'SGD':
-            return new SGDOptimizer(optimizer.options.learningRate);
-
-            case 'ADAGRAD':
-            return new AdagradOptimizer(optimizer.options.learningRate);
-
-            case 'ADADELTA':
-            return new AdadeltaOptimizer(optimizer.options.learningRate, optimizer.options.gamma);
-
-            case 'ADAM':
-            return new AdamOptimizer(optimizer.options.learningRate, optimizer.options.beta1, optimizer.options.beta2);
-
-            case 'ADAMAX':
-            return new AdamaxOptimizer(optimizer.options.learningRate, optimizer.options.beta1, optimizer.options.beta2);
-
-            case 'MOMENTUM':
-            return new MomentumOptimizer(optimizer.options.learningRate, optimizer.options.momentum);
-
-            default:
-            throw ('Unknown Optimizer: '+optimizer.type);
-        }
-    }
-
-
-    private convertToDeeplearnActivation(x:Tensor, kerasActivation: Layer):Tensor{
-        switch(kerasActivation.type.toUpperCase()){
-            case 'SOFTMAX':
-            return (this.deeplearn.graph.softmax(x));
-            case 'ELU':
-            return (this.deeplearn.graph.elu(x));
-            case 'RELU':
-            return (this.deeplearn.graph.relu(x));
-            case 'TANH':
-            return (this.deeplearn.graph.tanh(x));
-            case 'SIGMOID':
-            return (this.deeplearn.graph.sigmoid(x));
-            
-            case 'LEAKYRELU':
-            return this.deeplearn.graph.leakyRelu(x, kerasActivation.options.alpha);
-
-            case 'LINEAR':
-            // OMIT (linear does nothing)
-            return (null);
-
-            // Unsupported - could not find in deeplearn.js
-            case 'SOFTPLUS':
-            case 'SOFTSIGN':
-            case 'SELU':
-            throw ('Unsupported Activation type: '+kerasActivation.type);
-            default:
-            throw ('Unknown Activation type: '+kerasActivation.type);
-        }
-    }
-
-    // TODO: check prevlayer vs layer???
-
-    private convertToDeeplearnConv2D(
-        prevLayer: Tensor, 
-        fieldSize:number, stride:number, zeroPad:number, outputDepth:number,
-        inputShape: number[], index: number): Tensor {
-        const wShape: [number, number, number, number] =
-            [fieldSize, fieldSize, inputShape[2], outputDepth];
-        let w: Array4D;
-        let b: Array1D;
-
-        w = Array4D.randTruncatedNormal(wShape, 0, 0.1);
-        b = Array1D.zeros([outputDepth]);
-
-        const wTensor = this.deeplearn.graph.variable(`conv2d-${index}-w`, w);
-        const bTensor = this.deeplearn.graph.variable(`conv2d-${index}-b`, b);
-        return this.deeplearn.graph.conv2d(
-            prevLayer, wTensor, bTensor, fieldSize, outputDepth,
-            stride, zeroPad);
-    }
-
-    private getDims(arr: number[] | number): number[]{
-        return arr instanceof Array ? [arr.length].concat(this.getDims(arr[0])) : [];
-    }
-    private isEqual(arr1: any[], arr2: any[]): boolean{
-        return (JSON.stringify(arr1) == JSON.stringify(arr2));
-    }
-  
 
 }
