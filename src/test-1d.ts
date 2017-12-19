@@ -3,7 +3,8 @@ import { Layer, Dense, Activation, MaxPooling2D, Input, Output } from "./layers"
 
 
 let model = new Sequential();
-model.add(new Input(2)); // test Activation in layer definition
+model.add(new Input(2));
+model.add(new Dense(32,{activation: 'relu'}));// test Activation in layer definition
 model.add(new Dense(16)); // Test one with a separate Activation layer
 model.add(new Activation('relu'));
 model.add(new Output(1));

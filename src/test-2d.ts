@@ -1,13 +1,17 @@
 import { Sequential } from "./models/sequential";
 import { Layer, Dense, Activation, MaxPooling2D } from "./layers";
 import { Input, Output, Flatten } from "./layers";
+import { Reshape } from "./layers/reshape";
 
 
 let model = new Sequential();
 model.add(new Input([2,2]));
-model.add(new Flatten()); 
-model.add(new Dense(4));
 model.add(new Activation('relu'));
+model.add(new Flatten());
+model.add(new Reshape([4,1]));
+model.add(new Flatten());
+model.add(new Dense(2,{activation: 'sigmoid'}));
+
 model.add(new Output(1));
 
 console.log(model);
@@ -30,7 +34,7 @@ model.fit({
 })
 .then(() => {
     return model.predict({
-        input: [[0,0],[0,1]]
+        input: [[1,0],[1,1]]
     })
 })
 .then(res => {

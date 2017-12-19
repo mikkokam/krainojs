@@ -6,3 +6,4 @@ export { Conv2D } from './conv2D';
 export { Input } from './input';
 export { Output } from './output';
 export { Flatten } from './flatten';
+export { Reshape } from './reshape';

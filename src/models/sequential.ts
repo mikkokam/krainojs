@@ -71,15 +71,20 @@ export class Sequential{
 
         // Hidden layers
         let prevLayer = dl.inputTensor;
+        let prevLayerDims = inputDims;
         for(let i=1; i<(this.model.length-1);i++){
             let layer = this.model[i];
             switch(layer.constructor.name){
                 case 'Dense':
+                prevLayerDims = layer.units;
                 prevLayer = dl.graph.layers.dense(
                     `layer-${i}`, prevLayer, layer.units as number);
-                // Use embedded Activation as the next new layer by this + not breaking out
-                if(!layer.options.activation) break;
-                else layer = layer.options.activation;
+                // Use embedded Activation if available
+                if(layer.options.activation) {
+                    let activation = this.convertToDeeplearnActivation(prevLayer, layer.options.activation);
+                    if(activation) prevLayer = activation;
+                }
+                break;
                 
                 case 'Activation':
                 let activation = this.convertToDeeplearnActivation(prevLayer, layer);
@@ -87,20 +92,30 @@ export class Sequential{
                 break;
 
                 case 'MaxPooling2D':
+                prevLayerDims = layer.units;
                 prevLayer = dl.graph.maxPool(prevLayer, layer.units as number, layer.options.stride, layer.options.zeroPad);
                 break;
                 
                 case 'Conv2D':
+                prevLayerDims = layer.units;
                 prevLayer = this.convertToDeeplearnConv2D(
                     prevLayer,
                     layer.units as number, layer.options.stride, layer.options.zeroPad, layer.options.outputDepth,
-                    this.model[i-1].units as number[], i
+                    prevLayerDims as number[], i
                 );
+                 // Use embedded Activation if available
+                 if(layer.options.activation) {
+                    let activation = this.convertToDeeplearnActivation(prevLayer, layer.options.activation);
+                    if(activation) prevLayer = activation;
+                }
                 break;
 
                 case 'Flatten':
-                console.log(`Flatten from [${this.model[i-1].units as number[]}] to ${util.sizeFromShape(this.model[i-1].units as number[])}.`);
-                prevLayer = dl.graph.reshape(prevLayer, [util.sizeFromShape(this.model[i-1].units as number[])]); 
+                prevLayer = dl.graph.reshape(prevLayer, [util.sizeFromShape(prevLayerDims as number[])]); 
+                break;
+
+                case 'Reshape':
+                prevLayer = dl.graph.reshape(prevLayer, layer.units as number[]); 
                 break;
 
                 default:
@@ -122,6 +137,8 @@ export class Sequential{
         dl.session = new Session(dl.graph, dl.math);
         // console.log(dl.graph);
     }
+
+
 
     async fit(options:{
         input: any[],
