@@ -85,12 +85,12 @@ export class Sequential{
         dl.graph = new Graph();
         
         // This tensor contains the input
-        if(this.model[0].constructor.name !== 'Input') throw ('First layer must be an Input layer.');
+        if(this.model[0].type !== 'input') throw ('First layer must be an Input layer.');
         let inputDims:number[] = this.model[0].units as number[];
         dl.inputTensor = dl.graph.placeholder('input', inputDims);
         
         // This tensor contains the target
-        if(this.model[this.model.length-1].constructor.name !== 'Output') throw ('Last layer must be an Output layer.')
+        if(this.model[this.model.length-1].type !== 'output') throw ('Last layer must be an Output layer.')
         let outputDims: number[] = this.model[this.model.length-1].units as number[];
         dl.targetTensor = dl.graph.placeholder('output', outputDims);
 
@@ -99,8 +99,8 @@ export class Sequential{
         let prevLayerDims: number[] = inputDims;
         for(let i=1; i<(this.model.length-1);i++){
             let layer = this.model[i];
-            switch(layer.constructor.name){
-                case 'Dense':
+            switch(layer.type){
+                case 'dense':
                 prevLayerDims = layer.units as number[];
                 prevLayer = dl.graph.layers.dense(
                     `layer-${i}`, prevLayer, layer.units as number);
@@ -111,17 +111,17 @@ export class Sequential{
                 }
                 break;
                 
-                case 'Activation':
+                case 'activation':
                 let activation = DeeplearnConverter.convertToDeeplearnActivation(this.deeplearn, prevLayer, layer);
                 if(activation) prevLayer = activation;
                 break;
 
-                case 'MaxPooling2D':
+                case 'maxPooling2D':
                 prevLayerDims = layer.units as number[];
                 prevLayer = dl.graph.maxPool(prevLayer, layer.units as number, layer.options.stride, layer.options.zeroPad);
                 break;
                 
-                case 'Conv2D':
+                case 'conv2D':
                 prevLayerDims = layer.units as number[];
                 prevLayer = DeeplearnConverter.convertToDeeplearnConv2D(
                     this.deeplearn,
@@ -136,16 +136,16 @@ export class Sequential{
                 }
                 break;
 
-                case 'Flatten':
+                case 'flatten':
                 prevLayer = dl.graph.reshape(prevLayer, [util.sizeFromShape(prevLayerDims as number[])]); 
                 break;
 
-                case 'Reshape':
+                case 'reshape':
                 prevLayer = dl.graph.reshape(prevLayer, layer.units as number[]); 
                 break;
 
                 default:
-                throw ('Unknown layer type: '+layer.constructor.name);
+                throw ('Unknown layer type: '+layer.type);
             }
         
         }

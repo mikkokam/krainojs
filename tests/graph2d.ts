@@ -1,18 +1,16 @@
 import { Sequential } from "../src/models/sequential";
-import { Dense, Activation } from "../src/layers";
-import { Input, Output, Flatten } from "../src/layers";
-import { Reshape } from "../src/layers/reshape";
+import { Layers } from "../src/layers";
 
 
 let model = new Sequential();
-model.add(new Input([2,2]));
-model.add(new Activation('relu'));
-model.add(new Flatten());
-model.add(new Reshape([4,1]));
-model.add(new Flatten());
-model.add(new Dense(2,{activation: 'sigmoid'}));
+model.add(Layers.input([2,2]));
+model.add(Layers.activation('relu'));
+model.add(Layers.flatten());
+model.add(Layers.reshape([4,1]));
+model.add(Layers.flatten());
+model.add(Layers.dense(2,{activation: 'sigmoid'}));
 
-model.add(new Output(1));
+model.add(Layers.output(1));
 
 console.log(model);
 

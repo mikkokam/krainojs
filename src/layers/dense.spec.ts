@@ -1,27 +1,24 @@
-import { Dense } from './';
-import { Activation } from './activation';
+import { Layer, Layers } from './layers';
 
 describe("Dense", function () {
-    var dense: Dense;
+    var dense: Layer;
 
     it("should have size defined", function () {
-        dense = new Dense(2);
+        dense = Layers.dense(2);
         expect(dense.units).toBe(2);
     });
     it("should have default options", function () {
-        dense = new Dense(2);
-        let activation: Activation = dense.options.activation as Activation;
-        expect(activation).toEqual(jasmine.any(Activation));
-        expect(activation.type).toEqual('linear');
+        dense = Layers.dense(2);
+        let activationLayer: Layer = dense.options.activation as Layer;
+        expect(activationLayer.activation).toEqual('linear');
     });
     it("should override options", function () {
-        dense = new Dense(2,{activation: 'relu'});
-        let activation: Activation = dense.options.activation as Activation;
-        expect(activation).toEqual(jasmine.any(Activation));
-        expect(activation.type).toEqual('relu');
+        dense = Layers.dense(2,{activation: 'relu'});
+        let activationLayer: Layer = dense.options.activation as Layer;
+        expect(activationLayer.activation).toEqual('relu');
     });
     it("should not accept unknown Activation types", function () {
         let type = 'nosuchlayer';
-        expect( function(){ new Dense(2,{activation: type}); } ).toThrow();
+        expect( function(){ Layers.dense(2,{activation: type}); } ).toThrow();
     });
 });

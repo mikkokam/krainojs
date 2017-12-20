@@ -1,16 +1,14 @@
 import { Sequential } from "../src/models/sequential";
-import { Dense, Activation, Input, Output } from "../src/layers";
-import { LayerType } from "../src/layers/activation";
+import { Layers } from "../src/layers";
 
 let model = new Sequential();
 
-
-model.add(new Input(2));
-model.add(new Dense(16,{activation: 'relu'}));// test Activation in layer definition
-model.add(new Dense(8)); // Test one with a separate Activation layer
-model.add(new Activation('relu'));
-model.add(new Output(1));
-
+model.add(Layers.input(2));
+model.add(Layers.dense(16,{activation: 'relu'}));// test Activation in layer definition
+model.add(Layers.dense(8)); // Test one with a separate Activation layer
+model.add(Layers.activation('relu'));
+model.add(Layers.output(1));
+console.log(model);
 model.compile();
 
 model.fit({

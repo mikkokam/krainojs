@@ -1,6 +1,6 @@
 import { Loss } from "../losses/index";
 import { Optimizer } from "../optimizers";
-import { Layer } from "../layers/layer";
+import { Layer } from "../layers";
 
 import { SGDOptimizer, AdamOptimizer, AdamaxOptimizer, AdadeltaOptimizer, AdagradOptimizer, MomentumOptimizer } from 'deeplearn';
 import { NDArray, Array1D, Array2D, Array3D, Array4D, Tensor } from "deeplearn";
@@ -104,8 +104,8 @@ export class DeeplearnConverter{
      * @param activation The Activation layer to convert from
      * @returns The Deeplearn.js Tensor representing the Activation.
      */
-        static convertToDeeplearnActivation(deeplearn: DeeplearnModel, x: Tensor, activation: Layer):Tensor{
-        switch(activation.type.toUpperCase()){
+        static convertToDeeplearnActivation(deeplearn: DeeplearnModel, x: Tensor, activationLayer: Layer):Tensor{
+        switch((activationLayer.activation as string).toUpperCase()){
             case 'SOFTMAX':
             return (deeplearn.graph.softmax(x));
             case 'ELU':
@@ -118,7 +118,7 @@ export class DeeplearnConverter{
             return (deeplearn.graph.sigmoid(x));
             
             case 'LEAKYRELU':
-            return deeplearn.graph.leakyRelu(x, activation.options.alpha);
+            return deeplearn.graph.leakyRelu(x, activationLayer.options.alpha);
 
             case 'LINEAR':
             // OMIT (linear does nothing)
@@ -128,9 +128,9 @@ export class DeeplearnConverter{
             case 'SOFTPLUS':
             case 'SOFTSIGN':
             case 'SELU':
-            throw ('Unsupported Activation type: '+activation.type);
+            throw ('Unsupported Activation type: '+activationLayer.activation);
             default:
-            throw ('Unknown Activation type: '+activation.type);
+            throw ('Unknown Activation type: '+activationLayer.activation);
         }
     }
 

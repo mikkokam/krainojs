@@ -1,14 +1,14 @@
-import { Reshape } from './';
+import { Layer, Layers } from './';
 
 describe("Reshape", function () {
-    var reshape: Reshape;
+    var reshape: Layer;
 
     it("should have size defined", function () {
-        reshape = new Reshape([3,2,4]);
+        reshape = Layers.reshape([3,2,4]);
         expect(
-            reshape.units[0] == 3 &&
-            reshape.units[1] == 2 &&
-            reshape.units[2] == 4
+            (reshape.units as number[])[0] == 3 &&
+            (reshape.units as number[])[1] == 2 &&
+            (reshape.units as number[])[2] == 4
         ).toBeTruthy();
     });
 });

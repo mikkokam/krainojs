@@ -1,16 +1,16 @@
-import { Output } from './';
+import { Layer, Layers } from './';
 
 describe("Output", function () {
-    var output: Output;
+    var output: Layer;
 
     // Can be constructed by a number or an Array
     it("should have size defined by plain number", function () {
-        output = new Output(2);
+        output = Layers.output(2);
         let units: number[] = output.units as number[];
         expect(units[0]).toBe(2);
     });
     it("should have size defined by an Array", function () {
-        output = new Output([3,5]);
+        output = Layers.output([3,5]);
         let units: number[] = output.units as number[];
         expect(units.length).toBe(2);
         expect(units[0]).toBe(3);
