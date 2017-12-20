@@ -42,10 +42,10 @@ export class Sequential{
      *      Or, you can instantiate an empty model with:
      *      <pre>let model = new Sequential();
             // And then add layers:
-            model.add(new Input(2));
-            model.add(new Dense(8));
-            model.add(new Activation('relu'));
-            model.add(new Output(1));</pre>
+            model.add(Layers.input(2));
+            model.add(Layers.dense(8));
+            model.add(Layers.activation('relu'));
+            model.add(Layers.output(1));</pre>
      */
     constructor(model?: Layer[]){
         this.stats.compiled = false;

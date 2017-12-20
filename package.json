@@ -28,7 +28,7 @@
     "test": "karma start",
     "clean": "rimraf dist/*",
     "build": "rimraf dist/* && parcel src/index.ts",
-    "docs": "rimraf docs/* && typedoc --mode modules src/ --out docs/ --theme minimal"
+    "docs": "rimraf docs/* && typedoc --name Kraino.js --mode file src/layers/layers.ts src/models/sequential.ts --excludeExternals --out docs/ --theme minimal --excludePrivate --exclude *.spec.ts"
   },
   "author": "Mikko Kamarainen, mikko@goodhum.com, Goodhum, https://goodhum.com",
   "license": "MIT"

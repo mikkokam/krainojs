@@ -8,7 +8,7 @@ model.add(Layers.dense(16,{activation: 'relu'}));// test Activation in layer def
 model.add(Layers.dense(8)); // Test one with a separate Activation layer
 model.add(Layers.activation('relu'));
 model.add(Layers.output(1));
-console.log(model);
+
 model.compile();
 
 model.fit({
