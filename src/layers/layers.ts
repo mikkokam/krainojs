@@ -14,12 +14,11 @@ export interface Layer {
 /**
  * Layer builder. Static functions to create a new layer. Import Layers class and use it to populate a Sequential model rapidly:
  * <pre>import { Layers, Sequential } from 'Kraino';
-
         let model = new Sequential();
         model.add(Layers.input(4));
         model.add(Layers.dense(16));
         model.add(Layers.output(1));
- * </pre>
+    </pre>
  */
 export class Layers{
     public static types = ['activation','conv2D','dense','flatten','input','maxPooling2D','output','reshape'];
