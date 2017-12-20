@@ -1,5 +1,6 @@
 import { Sequential } from "../src/models/sequential";
 import { Dense, Activation, Input, Output } from "../src/layers";
+import { LayerType } from "../src/layers/activation";
 
 let model = new Sequential();
 

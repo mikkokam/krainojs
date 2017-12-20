@@ -1,5 +1,5 @@
-export { Sequential } from './models/sequential';
+export { Sequential } from './models';
 export * from './layers';
-export { Loss } from './losses';
+export * from './losses';
 export { Optimizer } from './optimizers';
 
