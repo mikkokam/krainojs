@@ -1,8 +1,8 @@
 /**
- * @param type Layer type. See also Layers class.
- * @param units Layer size. Meaning may vary depending on Layer type.
- * @param options Layer options. Contents may vary depending on Layer type.
- * @param activation Layer activation. Either a string (name) or an activation layer.
+ * @param Layer.type Layer type. See also Layers class.
+ * @param Layer.units Layer size. Meaning may vary depending on Layer type.
+ * @param Layer.options Layer options. Contents may vary depending on Layer type.
+ * @param Layer.activation Layer activation. Either a string (name) or an activation layer.
  */
 export interface Layer {
     type: 'activation'|'conv2D'|'dense'|'flatten'|'input'|'maxPooling2D'|'output'|'reshape';
