@@ -907,12 +907,6 @@ img { max-width: 100%; }
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class=" tsd-kind-enum">
-			<a href="../enums/koe.html" class="tsd-kind-icon">Koe</a>
-		</li>
-		<li class=" tsd-kind-enum">
-			<a href="../enums/optimizertypes.html" class="tsd-kind-icon">Optimizer<wbr>Types</a>
-		</li>
 		<li class=" tsd-kind-class">
 			<a href="layers.html" class="tsd-kind-icon">Layers</a>
 		</li>
@@ -939,6 +933,12 @@ img { max-width: 100%; }
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="sequential.html#predict" class="tsd-kind-icon">predict</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="sequential.html#tojson" class="tsd-kind-icon">toJSON</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a href="sequential.html#fromjson" class="tsd-kind-icon">fromJSON</a>
 				</li>
 				<li class=" tsd-kind-object-literal tsd-parent-kind-class">
 					<a href="sequential.html#stats" class="tsd-kind-icon">stats</a>
@@ -990,6 +990,8 @@ img { max-width: 100%; }
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="sequential.html#compile" class="tsd-kind-icon">compile</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="sequential.html#fit" class="tsd-kind-icon">fit</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="sequential.html#predict" class="tsd-kind-icon">predict</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="sequential.html#tojson" class="tsd-kind-icon">toJSON</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="sequential.html#fromjson" class="tsd-kind-icon">fromJSON</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -1013,7 +1015,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L35">models/sequential.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L35">models/sequential.ts:35</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1056,7 +1058,7 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L59">models/sequential.ts:59</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L82">models/sequential.ts:82</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1087,7 +1089,7 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L69">models/sequential.ts:69</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L92">models/sequential.ts:92</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1129,7 +1131,7 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L180">models/sequential.ts:180</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L203">models/sequential.ts:203</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1202,7 +1204,7 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L248">models/sequential.ts:248</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L271">models/sequential.ts:271</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1240,6 +1242,69 @@ model.add(Layers.output(1));</pre></p>
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="tojson" class="tsd-anchor"></a>
+				<h3>toJSON</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">toJSON<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L63">models/sequential.ts:63</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Convert the Sequential model to JSON.</p>
+								<p><pre>let jsonString = model.toJSON();</pre>
+									The generated JSON file is human-readable and can be manually edited if needed.
+									You can build a fresh model from this data calling the static Sequential.fromJSON() later.
+								TODO: this will later also support saving the weights.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						<p>The architecture of the model as a string.</p>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+				<a name="fromjson" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagStatic">Static</span> fromJSON</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<li class="tsd-signature tsd-kind-icon">fromJSON<span class="tsd-signature-symbol">(</span>model<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sequential.html" class="tsd-signature-type">Sequential</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L75">models/sequential.ts:75</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Create a new Sequential model from JSON.
+								If you need to save the architecture of a model, you can do:</p>
+								<p><pre>let model: Sequential = Sequential.fromJSON(jsonString);</pre>
+									The generated JSON file is human-readable and can be manually edited if needed.
+								TODO: this will later also support loading weights.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>model: <span class="tsd-signature-type">string</span></h5>
+								<div class="tsd-comment tsd-typography">
+									<p>The architecture of the model as a string.</p>
+								</div>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="sequential.html" class="tsd-signature-type">Sequential</a></h4>
+						<p>A new Sequential model.</p>
+					</li>
+				</ul>
+			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Object literals</h2>
@@ -1249,7 +1314,7 @@ model.add(Layers.output(1));</pre></p>
 				<div class="tsd-signature tsd-kind-icon">stats<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L21">models/sequential.ts:21</a></li>
+						<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L21">models/sequential.ts:21</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1260,7 +1325,7 @@ model.add(Layers.output(1));</pre></p>
 					<div class="tsd-signature tsd-kind-icon">compiled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L27">models/sequential.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L27">models/sequential.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1273,7 +1338,7 @@ model.add(Layers.output(1));</pre></p>
 					<div class="tsd-signature tsd-kind-icon">cost<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L28">models/sequential.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L28">models/sequential.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1286,7 +1351,7 @@ model.add(Layers.output(1));</pre></p>
 					<div class="tsd-signature tsd-kind-icon">epochs<wbr>Run<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L30">models/sequential.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L30">models/sequential.ts:30</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1299,7 +1364,7 @@ model.add(Layers.output(1));</pre></p>
 					<div class="tsd-signature tsd-kind-icon">loss<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/565ae3f/src/models/sequential.ts#L29">models/sequential.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/1091dd9/src/models/sequential.ts#L29">models/sequential.ts:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">

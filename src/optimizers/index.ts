@@ -6,14 +6,6 @@ export interface OptimizerOptions{
     momentum?:number
 }
 
-export enum OptimizerType{
-    'SGD',
-    'Adagrad',
-    'Adadelta',
-    'Adam',
-    'Adamax',
-    'Momentum'
-}
 export class Optimizer{
 
     static types = [
@@ -26,7 +18,6 @@ export class Optimizer{
     ];
 
     public type: string = 'SGD';
-    public type2: OptimizerType = OptimizerType.SGD;
     
     public options:OptimizerOptions = {
         learningRate: 0.1,
@@ -37,13 +28,12 @@ export class Optimizer{
     }
 
     constructor(
-        type2?: OptimizerType,
         type?: string,
         options?: OptimizerOptions 
     ){
         if(!!type && Optimizer.types.map(o => o.toUpperCase()).indexOf(type.toUpperCase()) === -1) throw(`Unknown type '${type}'`);
         if(!!type) this.type = type;
-        this.type2= type2;
+
         // Merge with defaults
         this.options = {...this.options, ...options};
         console.log(this);

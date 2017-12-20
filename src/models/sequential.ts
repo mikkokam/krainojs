@@ -52,17 +52,34 @@ export class Sequential{
         if(model) model.forEach(layer => this.add(layer));
     }
     
-    toJSON():string{
+    /**
+     * Convert the Sequential model to JSON.
+     * <pre>let jsonString = model.toJSON();</pre>
+     * The generated JSON file is human-readable and can be manually edited if needed.
+     * You can build a fresh model from this data calling the static Sequential.fromJSON() later.
+     * TODO: this will later also support saving the weights.
+     * @returns The architecture of the model as a string.
+     */
+    toJSON():string {
         return JSON.stringify(this.model);
     }
-    static fromJSON(model: string){
+    /**
+     * Create a new Sequential model from JSON.
+     * If you need to save the architecture of a model, you can do:
+     * <pre>let model: Sequential = Sequential.fromJSON(jsonString);</pre>
+     * The generated JSON file is human-readable and can be manually edited if needed.
+     * TODO: this will later also support loading weights.
+     * @param model The architecture of the model as a string.
+     * @returns A new Sequential model.
+     */
+    static fromJSON(model: string):Sequential {
         return new Sequential(JSON.parse(model));
     }
     /**
      * Add a layer to the Sequential model.
      * @param layer The layer to add
      */
-    add(layer: Layer):void{
+    add(layer: Layer):void {
         this.stats.compiled = false;
         this.model.push(layer);
     }

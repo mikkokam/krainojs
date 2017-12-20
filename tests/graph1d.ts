@@ -1,5 +1,5 @@
 import { Sequential } from "../src/models/sequential";
-import { Layers } from "../src/layers";
+import { Layers } from "../src";
 
 let model = new Sequential();
 
