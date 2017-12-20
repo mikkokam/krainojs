@@ -56,8 +56,8 @@ export class Sequential{
      * Convert the Sequential model to JSON.
      * <pre>let jsonString = model.toJSON();</pre>
      * The generated JSON file is human-readable and can be manually edited if needed.
-     * You can build a fresh model from this data calling the static Sequential.fromJSON() later.
-     * TODO: this will later also support saving the weights.
+     * You can build a fresh model from this data calling the static .fromJSON() later.
+     * @TODO this will later also support saving the weights.
      * @returns The architecture of the model as a string.
      */
     toJSON():string {
@@ -65,7 +65,6 @@ export class Sequential{
     }
     /**
      * Create a new Sequential model from JSON.
-     * If you need to save the architecture of a model, you can do:
      * <pre>let model: Sequential = Sequential.fromJSON(jsonString);</pre>
      * The generated JSON file is human-readable and can be manually edited if needed.
      * TODO: this will later also support loading weights.
