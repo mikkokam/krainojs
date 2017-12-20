@@ -9,7 +9,7 @@ export class Layers{
     public static types = ['activation','conv2D','dense','flatten','input','maxPooling2D','output','reshape'];
     public static activations = ['Linear','Softmax','ReLU','LeakyReLU','ELU','Tanh','Sigmoid'];
     
-    static activation(activation: string, options?: { alpha: number }):Layer {
+    static activation(activation: string, options?: { alpha?: number }):Layer {
         if(!!activation && Layers.activations.map(o => o.toUpperCase()).indexOf(activation.toUpperCase()) === -1) throw(`Unknown activation '${activation}'`);
         let layer:Layer = {
             units: undefined,
@@ -24,7 +24,7 @@ export class Layers{
 
     static conv2D(
         fieldSize: number,
-        options: { outputDepth: number, stride: number, zeroPad: number }
+        options?: { outputDepth?: number, stride?: number, zeroPad?: number }
     ):Layer {
         let layer:Layer = {
             units: fieldSize,
@@ -35,7 +35,7 @@ export class Layers{
         return layer;
     }
 
-    static dense(units: number, options?: {activation: string | Layer}):Layer {
+    static dense(units: number, options?: {activation?: string | Layer}):Layer {
         let layer:Layer = {
             units: units, type: 'dense', 
             options: { activation: 'linear' }

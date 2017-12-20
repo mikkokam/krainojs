@@ -51,7 +51,13 @@ export class Sequential{
         this.stats.compiled = false;
         if(model) model.forEach(layer => this.add(layer));
     }
-
+    
+    toJSON():string{
+        return JSON.stringify(this.model);
+    }
+    static fromJSON(model: string){
+        return new Sequential(JSON.parse(model));
+    }
     /**
      * Add a layer to the Sequential model.
      * @param layer The layer to add
