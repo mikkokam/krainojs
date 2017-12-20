@@ -3,8 +3,9 @@ import { Layers } from "../src/layers";
 
 
 let model = new Sequential();
-model.add(Layers.input([28,28,1]));
-model.add(Layers.conv2D(5, {outputDepth: 8, stride: 1, zeroPad: 2}));
+model.add(Layers.input([2,2,1]));
+model.add(Layers.activation('relu'));
+model.add(Layers.conv2D(2,{outputDepth: 4}));
 model.add(Layers.activation('relu'));
 model.add(Layers.flatten());
 model.add(Layers.dense(2,{activation: 'sigmoid'}));
@@ -13,14 +14,14 @@ model.add(Layers.output(1));
 console.log(model);
 
 model.compile({
-    optimizer: 'Adamax',
+    optimizer: 'adam',
     loss: 'meanSquared'
 });
 
 model.fit({
     input: [
-        [[0,0],[0,1]],
-        [[1,0],[1,1]]
+        [[[0],[0]],[[0],[1]]],
+        [[[1],[0]],[[1],[1]]]
     ],
     target: [
         [0],
@@ -30,7 +31,7 @@ model.fit({
 })
 .then(() => {
     return model.predict({
-        input: [[1,0],[1,1]]
+        input: [[[1],[0]],[[1],[1]]]
     })
 })
 .then(res => {

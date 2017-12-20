@@ -118,12 +118,10 @@ export class Sequential{
 
         // Hidden layers
         let prevLayer = dl.inputTensor;
-        let prevLayerDims: number[] = inputDims;
         for(let i=1; i<(this.model.length-1);i++){
             let layer = this.model[i];
             switch(layer.type){
                 case 'dense':
-                prevLayerDims = layer.units as number[];
                 prevLayer = dl.graph.layers.dense(
                     `layer-${i}`, prevLayer, layer.units as number);
                 // Use embedded Activation if available
@@ -135,21 +133,19 @@ export class Sequential{
                 
                 case 'activation':
                 let activation = DeeplearnConverter.convertToDeeplearnActivation(this.deeplearn, prevLayer, layer);
-                if(activation) prevLayer = activation;
+                if(activation) prevLayer = activation; // skip linear
                 break;
 
                 case 'maxPooling2D':
-                prevLayerDims = layer.units as number[];
                 prevLayer = dl.graph.maxPool(prevLayer, layer.units as number, layer.options.stride, layer.options.zeroPad);
                 break;
                 
                 case 'conv2D':
-                prevLayerDims = layer.units as number[];
                 prevLayer = DeeplearnConverter.convertToDeeplearnConv2D(
                     this.deeplearn,
                     prevLayer,
                     layer.units as number, layer.options.stride, layer.options.zeroPad, layer.options.outputDepth,
-                    prevLayerDims as number[], i
+                    prevLayer.shape, i
                 );
                  // Use embedded Activation if available
                  if(layer.options.activation) {
@@ -159,7 +155,7 @@ export class Sequential{
                 break;
 
                 case 'flatten':
-                prevLayer = dl.graph.reshape(prevLayer, [util.sizeFromShape(prevLayerDims as number[])]); 
+                prevLayer = dl.graph.reshape(prevLayer, [util.sizeFromShape(prevLayer.shape)]);
                 break;
 
                 case 'reshape':
