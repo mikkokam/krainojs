@@ -1,6 +1,6 @@
-import { Layer } from '../layers';
-import { Optimizer } from '../optimizers';
-import { Loss } from '../losses';
+import { Layer } from '../';
+import { Optimizer, Optimizers } from '../';
+import { Loss, Losses } from '../';
 
 
 import { Graph, Session, CostReduction, NDArrayMathCPU, NDArrayMathGPU, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
@@ -85,20 +85,19 @@ export class Sequential{
 
     /**
      * Configures the model for training.
-     * @param options.optimizer string (name of optimizer) or Optimizer object. See optimizers.
-     * @param options.loss string (name of loss function) or Loss object. See losses.
+     * @param options.optimizer Optimizer object. See Optimizers class.
+     * @param options.loss Loss object. See Losses class.
      */
     compile(options?: {
-        optimizer?: Optimizer | string,
-        loss?: Loss | string
+        optimizer?: Optimizer,
+        loss?: Loss
     }):void{
         // Defaults
         options = options || {};
-        options.optimizer = options.optimizer || 'SGD';
-        options.loss = options.loss || 'meanSquared';
-        // String or an Object accepted
-        options.optimizer = (typeof(options.optimizer) == 'string') ? new Optimizer(options.optimizer) : options.optimizer;
-        options.loss = (typeof(options.loss) == 'string') ? new Loss(options.loss) : options.loss;
+
+        options.optimizer = options.optimizer || Optimizers.sgd();
+        
+        options.loss = options.loss || Losses.meanSquared();
 
         // Init deeplearn.js model
         let dl = this.deeplearn;

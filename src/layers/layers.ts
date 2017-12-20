@@ -1,3 +1,4 @@
+
 /**
  * @param Layer.type Layer type. See also Layers class.
  * @param Layer.units Layer size. Meaning may vary depending on Layer type.
@@ -5,11 +6,13 @@
  * @param Layer.activation Layer activation. Either a string (name) or an activation layer.
  */
 export interface Layer {
-    type: 'activation'|'conv2D'|'dense'|'flatten'|'input'|'maxPooling2D'|'output'|'reshape';
+    type: string;
     units: number | number[];
     options?: any;
     activation?: string | Layer;
 }
+
+
 
 /**
  * Layer builder. Static functions to create a new layer. Import Layers class and use it to populate a Sequential model rapidly:
@@ -22,7 +25,7 @@ export interface Layer {
  */
 export class Layers{
     public static types = ['activation','conv2D','dense','flatten','input','maxPooling2D','output','reshape'];
-    public static activations = ['Linear','Softmax','ReLU','LeakyReLU','ELU','Tanh','Sigmoid'];
+    public static activations: string[] = ['Linear','Softmax','ReLU','LeakyReLU','ELU','Tanh','Sigmoid'];
     
     static activation(activation: string, options?: { alpha?: number }):Layer {
         if(!!activation && Layers.activations.map(o => o.toUpperCase()).indexOf(activation.toUpperCase()) === -1) throw(`Unknown activation '${activation}'`);

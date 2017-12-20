@@ -1,6 +1,6 @@
-export { Models } from './models';
+export { Sequential } from './models';
 
 export { Layer, Layers } from './layers';
-export { Loss } from './losses';
-export { Optimizer } from './optimizers';
+export { Loss, Losses } from './losses';
+export { Optimizer, Optimizers } from './optimizers';
 

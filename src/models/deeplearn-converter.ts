@@ -60,7 +60,7 @@ export class DeeplearnConverter{
             case 'MEANSQUARED':
             return deeplearn.graph.meanSquaredCost(deeplearn.targetTensor, deeplearn.predictionTensor);
             case 'SOFTMAXCROSSENTROPY':
-            return deeplearn.graph.softmaxCrossEntropyCost(deeplearn.targetTensor, deeplearn.predictionTensor);
+            return deeplearn.graph.softmaxCrossEntropyCost(deeplearn.predictionTensor, deeplearn.targetTensor);
             default:
             throw ('Unknown Cost function: '+loss.type);
         }
