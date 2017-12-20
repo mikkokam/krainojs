@@ -964,6 +964,20 @@ img { max-width: 100%; }
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>Layer builder. Static functions to create a new layer. Import Layers class and use it to populate a Sequential model rapidly:</p>
+					<p><pre>import { Layers, Sequential } from &#39;Kraino&#39;;</p>
+
+                </div>
+                <p>let model = new Sequential();
+model.add(Layers.input(4));
+model.add(Layers.dense(16));
+model.add(Layers.output(1));
+</pre></p>
+				</div>
+		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
@@ -1007,7 +1021,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">activations<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;Linear&#x27;,&#x27;Softmax&#x27;,&#x27;ReLU&#x27;,&#x27;LeakyReLU&#x27;,&#x27;ELU&#x27;,&#x27;Tanh&#x27;,&#x27;Sigmoid&#x27;]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L10">layers/layers.ts:10</a></li>
+						<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L26">layers/layers.ts:26</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1017,7 +1031,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;activation&#x27;,&#x27;conv2D&#x27;,&#x27;dense&#x27;,&#x27;flatten&#x27;,&#x27;input&#x27;,&#x27;maxPooling2D&#x27;,&#x27;output&#x27;,&#x27;reshape&#x27;]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L9">layers/layers.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L25">layers/layers.ts:25</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1034,7 +1048,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L12">layers/layers.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L28">layers/layers.ts:28</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1065,7 +1079,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L25">layers/layers.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L41">layers/layers.ts:41</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1102,7 +1116,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L38">layers/layers.ts:38</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L54">layers/layers.ts:54</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1133,7 +1147,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L48">layers/layers.ts:48</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L64">layers/layers.ts:64</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/layer.html" class="tsd-signature-type">Layer</a></h4>
@@ -1150,7 +1164,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L53">layers/layers.ts:53</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L69">layers/layers.ts:69</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1173,7 +1187,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L59">layers/layers.ts:59</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L75">layers/layers.ts:75</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1207,7 +1221,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L72">layers/layers.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L88">layers/layers.ts:88</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1230,7 +1244,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2402093/src/layers/layers.ts#L78">layers/layers.ts:78</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/fdc04c7/src/layers/layers.ts#L94">layers/layers.ts:94</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>

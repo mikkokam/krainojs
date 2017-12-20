@@ -3,13 +3,11 @@ import { Layers } from "../src/layers";
 
 
 let model = new Sequential();
-model.add(Layers.input([2,2]));
+model.add(Layers.input([28,28,1]));
+model.add(Layers.conv2D(5, {outputDepth: 8, stride: 1, zeroPad: 2}));
 model.add(Layers.activation('relu'));
 model.add(Layers.flatten());
-model.add(Layers.reshape([4,1]));
-model.add(Layers.flatten());
 model.add(Layers.dense(2,{activation: 'sigmoid'}));
-
 model.add(Layers.output(1));
 
 console.log(model);

@@ -1,10 +1,26 @@
+/**
+ * @param type Layer type. See also Layers class.
+ * @param units Layer size. Meaning may vary depending on Layer type.
+ * @param options Layer options. Contents may vary depending on Layer type.
+ * @param activation Layer activation. Either a string (name) or an activation layer.
+ */
 export interface Layer {
-    type: string;
+    type: 'activation'|'conv2D'|'dense'|'flatten'|'input'|'maxPooling2D'|'output'|'reshape';
     units: number | number[];
     options?: any;
     activation?: string | Layer;
 }
 
+/**
+ * Layer builder. Static functions to create a new layer. Import Layers class and use it to populate a Sequential model rapidly:
+ * <pre>import { Layers, Sequential } from 'Kraino';
+
+        let model = new Sequential();
+        model.add(Layers.input(4));
+        model.add(Layers.dense(16));
+        model.add(Layers.output(1));
+ * </pre>
+ */
 export class Layers{
     public static types = ['activation','conv2D','dense','flatten','input','maxPooling2D','output','reshape'];
     public static activations = ['Linear','Softmax','ReLU','LeakyReLU','ELU','Tanh','Sigmoid'];
