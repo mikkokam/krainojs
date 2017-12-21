@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "deeplearn": "0.3.13"
+    "@types/jimp": "^0.2.1",
+    "deeplearn": "0.3.13",
+    "jimp": "0.2.24"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,7 @@
     "karma-typescript": "^3.0.9",
     "parcel-bundler": "^1.2.1",
     "rimraf": "^2.6.2",
-    "ts-node": "^4.0.1",
+    "ts-node": "^4.0.2",
     "typedoc": "^0.9.0",
     "typescript": "^2.6.2"
   },

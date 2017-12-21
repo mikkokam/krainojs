@@ -4,7 +4,7 @@ let model = new Sequential();
 
 model.add(Layers.input(2));
 model.add(Layers.dense(16,{activation: 'relu'}));// test Activation in layer definition
-model.add(Layers.dense(8)); // Test one with a separate Activation layer
+model.add(Layers.dense(10)); // Test one with a separate Activation layer
 model.add(Layers.activation('relu'));
 model.add(Layers.output(1));
 
@@ -24,4 +24,3 @@ model.fit({
 .then(res => {
     console.log('done',res);
 })
-

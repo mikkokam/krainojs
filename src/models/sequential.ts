@@ -3,9 +3,10 @@ import { Optimizer, Optimizers } from '../';
 import { Loss, Losses } from '../';
 
 
-import { Graph, Session, CostReduction, NDArrayMathCPU, NDArrayMathGPU, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
+import { Graph, Session, CostReduction, NDArrayMathCPU, NDArrayMathGPU, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder,InGPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
 
 import { DeeplearnConverter, DeeplearnModel } from './deeplearn-converter';
+
 
 /**
  * The Sequential model is a linear stack of layers.
@@ -98,6 +99,7 @@ export class Sequential{
         options.optimizer = options.optimizer || Optimizers.sgd();
         
         options.loss = options.loss || Losses.meanSquared();
+
 
         // Init deeplearn.js model
         let dl = this.deeplearn;
@@ -207,12 +209,12 @@ export class Sequential{
         this.log('Start fit');
         // Sanity check
         if(!options.input.length || !options.target.length) throw('Missing input/target Arrays.');
-        let inputDims       = DeeplearnConverter.getDims(options.input[0]);
-        let modelInputDims  = this.model[0].units as number[];
-        let targetDims      = DeeplearnConverter.getDims(options.target[0]);
-        let modelTargetDims = this.model[this.model.length-1].units as number[];
-        if(!DeeplearnConverter.isEqual(inputDims, modelInputDims)) throw(`Wrong dimensions for inputs: model has shape [${modelInputDims}], but input has shape [${inputDims}].`);
-        if(!DeeplearnConverter.isEqual(targetDims, modelTargetDims)) throw(`Wrong dimensions for targets: model has shape [${modelTargetDims}], but target has shape [${targetDims}].`);
+        // let inputDims       = DeeplearnConverter.getDims(options.input[0]);
+        // let modelInputDims  = this.model[0].units as number[];
+        // let targetDims      = DeeplearnConverter.getDims(options.target[0]);
+        // let modelTargetDims = this.model[this.model.length-1].units as number[];
+        // if(!DeeplearnConverter.isEqual(inputDims, modelInputDims)) throw(`Wrong dimensions for inputs: model has shape [${modelInputDims}], but input has shape [${inputDims}].`);
+        // if(!DeeplearnConverter.isEqual(targetDims, modelTargetDims)) throw(`Wrong dimensions for targets: model has shape [${modelTargetDims}], but target has shape [${targetDims}].`);
         
         // Defaults
         options.batchSize = options.batchSize || 32;
@@ -223,10 +225,14 @@ export class Sequential{
 
         const timeStart: number = new Date().valueOf();
 
-        const inputArray = options.input.map(el => DeeplearnConverter.convertToDeeplearnArray(el));
+        const inputArray = options.input.map(el => DeeplearnConverter.convertToDeeplearnArray(this.deeplearn.inputTensor.shape, el));
         const targetArray = options.target.map(el => Array1D.new(el));
+
         const shuffledInputProviderBuilder =
-            new InCPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]);
+            (typeof window === 'undefined') ?
+                new InCPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]) :
+                new InGPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]);
+
         const [inputProvider, targetProvider] =
             shuffledInputProviderBuilder.getInputProviders();
         const feedEntries = [
@@ -269,8 +275,7 @@ export class Sequential{
     }):Promise<Float32Array | Int32Array | Uint8Array>{
         options.batchSize = options.batchSize || 32;
         options.verbose = options.verbose || 1;
-
-        const inputArray = DeeplearnConverter.convertToDeeplearnArray(options.input);
+        const inputArray = DeeplearnConverter.convertToDeeplearnArray(this.deeplearn.inputTensor.shape, options.input);
         const val = this.deeplearn.session.eval(this.deeplearn.predictionTensor, 
             [{tensor: this.deeplearn.inputTensor, data: inputArray}]);
 

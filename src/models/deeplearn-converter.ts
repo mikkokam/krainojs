@@ -24,24 +24,24 @@ export class DeeplearnConverter{
 
     /**
      * Convert a javascript Array to a Deeplearn.js Array
+     * @param deeplearn The Deeplearn.js model
      * @param arr The javascript Array
      * @returns The NDArray (Array1D, Array2D, Array3D, or Array4D)
      */
-    static convertToDeeplearnArray(arr: number[]): NDArray{
-        let dims = this.getDims(arr);
+    static convertToDeeplearnArray(shape: any, arr: number[] | boolean[] | Float32Array | Int32Array | Uint8Array): NDArray{
         let dlArray;
-        switch(dims.length){
+        switch(shape.length){
             case 1:
             dlArray = Array1D.new(arr);
             break;
             case 2:
-            dlArray = Array2D.new(dims as [number,number], arr);
+            dlArray = Array2D.new(shape, arr);
             break;
             case 3:
-            dlArray = Array3D.new(dims as [number,number,number], arr);
+            dlArray = Array3D.new(shape, arr);
             break;
             case 4:
-            dlArray = Array4D.new(dims as [number,number,number,number], arr);
+            dlArray = Array4D.new(shape, arr);
             break;
             default:
             throw(`Unknown dimensionality for array: ${arr}`)
