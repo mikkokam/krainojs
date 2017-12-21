@@ -2,11 +2,9 @@ import { Layer } from '../';
 import { Optimizer, Optimizers } from '../';
 import { Loss, Losses } from '../';
 
-
 import { ENV, Graph, Session, CostReduction, Scalar, Array1D,InGPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
 
 import { DeeplearnConverter, DeeplearnModel } from './deeplearn-converter';
-
 
 /**
  * The Sequential model is a linear stack of layers.
@@ -181,7 +179,6 @@ export class Sequential{
         this.stats.compiled = true;
     }
 
-
     /**
      * Trains the model for a fixed number of epochs: iterations on the dataset.
      * You can run this many times, continuing the previous training (with the same or different data).
@@ -196,7 +193,7 @@ export class Sequential{
      * @returns Promise, resolving to true once the model is trained.
      */
     async fit(options:{
-        input: any[],
+        input: any[] | Float32Array | Int32Array | Uint8Array,
         target: any[],
 
         batchSize?: number,
@@ -252,7 +249,6 @@ export class Sequential{
         this.log(`Epoch: ${this.stats.epochsRun}/${options.epochs}, Loss: ${this.stats.loss}.`);
         this.log(`Took ${time}ms.`);
         return true;
-
     }
 
     /**
@@ -262,7 +258,7 @@ export class Sequential{
      * @param options.verbose TO BE IMPLEMENTED.
      */
     async predict(options:{
-        input: any[],
+        input: any[] | Float32Array | Int32Array | Uint8Array,
         batchSize?: number,
         verbose?: number
     }):Promise<Float32Array | Int32Array | Uint8Array>{
@@ -271,12 +267,11 @@ export class Sequential{
         const inputArray = DeeplearnConverter.convertToDeeplearnArray(this.deeplearn.inputTensor.shape, options.input);
         const val = this.deeplearn.session.eval(this.deeplearn.predictionTensor, 
             [{tensor: this.deeplearn.inputTensor, data: inputArray}]);
-
         return val.data();
     }
 
     /**
-     * 
+     * Logging.
      * @param msg Utility to log (for debugging).
      */
     private log(...msg:string[]): void{
