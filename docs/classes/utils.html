@@ -980,12 +980,12 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/63c6f6b/src/utils/utils.ts#L11">utils/utils.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/a26672f/src/utils/utils.ts#L11">utils/utils.ts:11</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Load image as a typed (Float32Array): a normalized (0...1) Array of RGB values.</p>
+								<p>Load image as a typed Array (Float32Array): a normalized (0...1) Array of RGB values.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1018,13 +1018,13 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/63c6f6b/src/utils/utils.ts#L44">utils/utils.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/a26672f/src/utils/utils.ts#L44">utils/utils.ts:44</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Load many images as a an Array of typed (Float32Array): a normalized (0...1) Array of RGB values.
-									You can easily then use the images to train a model:
+								<p>Load many images as a typed Array (Float32Array): a normalized (0...1) Array of RGB values.
+									You can then easily use the images to train a model:
 									<pre>import { Utils } from &#39;Kranio/utils&#39;;
  // set up model with an input of shape [32,32,3] first, then:
  Utils.loadImages([&#39;/imgs/0.jpg&#39;,&#39;/imgs/1.jpg&#39;,&#39;imgs/2.jpg&#39;], [32,32,3])

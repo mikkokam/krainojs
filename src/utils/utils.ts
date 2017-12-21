@@ -3,7 +3,7 @@ declare var Jimp: any;
 
 export class Utils{
     /**
-     * Load image as a typed (Float32Array): a normalized (0...1) Array of RGB values.
+     * Load image as a typed Array (Float32Array): a normalized (0...1) Array of RGB values.
      * @param url The url of the image to load.
      * @param shape An Array of the output image dimensions: [x,y,channels] - i.e. [64,64,3] means fit in 64x64 px, and output only RGB values (skip Alpha channel).
      * @returns An Array of the normalized pixel RGB values.
@@ -26,8 +26,8 @@ export class Utils{
         })
     }
     /**
-     * Load many images as a an Array of typed (Float32Array): a normalized (0...1) Array of RGB values.
-     * You can easily then use the images to train a model:
+     * Load many images as a typed Array (Float32Array): a normalized (0...1) Array of RGB values.
+     * You can then easily use the images to train a model:
      *  <pre>import { Utils } from 'Kranio/utils';
      *  // set up model with an input of shape [32,32,3] first, then:
      *  Utils.loadImages(['/imgs/0.jpg','/imgs/1.jpg','imgs/2.jpg'], [32,32,3])
