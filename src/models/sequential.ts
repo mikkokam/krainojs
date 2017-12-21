@@ -3,7 +3,7 @@ import { Optimizer, Optimizers } from '../';
 import { Loss, Losses } from '../';
 
 
-import { Graph, Session, CostReduction, NDArrayMathCPU, NDArrayMathGPU, Scalar, Array1D, InCPUMemoryShuffledInputProviderBuilder,InGPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
+import { ENV, Graph, Session, CostReduction, Scalar, Array1D,InGPUMemoryShuffledInputProviderBuilder, util } from 'deeplearn';
 
 import { DeeplearnConverter, DeeplearnModel } from './deeplearn-converter';
 
@@ -34,8 +34,6 @@ export class Sequential{
     // The Layers as an Array.
     private model: Layer[] = [];
     private deeplearn: DeeplearnModel = {}
-
-
 
     /**
      * Constructor - a new Sequential model.
@@ -103,8 +101,7 @@ export class Sequential{
 
         // Init deeplearn.js model
         let dl = this.deeplearn;
-        dl.math = (typeof window === 'undefined') ? new NDArrayMathCPU() : new NDArrayMathGPU();
-        console.log(dl.math);
+        dl.math = ENV.math;
         dl.graph = new Graph();
         
         // This tensor contains the input
@@ -187,10 +184,12 @@ export class Sequential{
 
     /**
      * Trains the model for a fixed number of epochs: iterations on the dataset.
+     * You can run this many times, continuing the previous training (with the same or different data).
      * @param options.input Array of training data. Mandatory.<br>
      * @param options.target Array of target (label) data. Mandatory.<br>
      * @param options.batchSize Number of samples per gradient update. If unspecified, it will default to 32.<br>
      * @param options.epochs Number of epochs to train. Each epoch is an iteration over the entire input and target data provided. If unspecified, it will default to 1.<br>
+     * @param options.targetLoss If provided, the training will be stopped when this loss has been reached, regardless ofthe epochs run. Value should be a float between 0 and 1.
      * @param options.log Number of epochs to run between logging. 0 = silent. 10 = log every 10 epochs. If unspecified, it will default to 10.<br>
      * @param options.validationSplit TO BE IMPLEMENTED. Float between 0 and 1. Fraction of the training data to be used as validation data. The model will set apart this fraction of the training data, will not train on it, and will evaluate the loss and any model metrics on this data at the end of each epoch. The validation data is selected from the last samples in the x and y data provided, before shuffling. Default: 0 == no validation.<br>
      * @param options.shuffle Boolean (whether to shuffle the training data before each epoch). If unspecified, it will default to true.<br>
@@ -202,6 +201,7 @@ export class Sequential{
 
         batchSize?: number,
         epochs?: number,
+        targetLoss?: number,
         log?: number,
         validationSplit?: number,
         shuffle?: boolean // TODO: use this -- now always Shuffles
@@ -209,13 +209,7 @@ export class Sequential{
         this.log('Start fit');
         // Sanity check
         if(!options.input.length || !options.target.length) throw('Missing input/target Arrays.');
-        // let inputDims       = DeeplearnConverter.getDims(options.input[0]);
-        // let modelInputDims  = this.model[0].units as number[];
-        // let targetDims      = DeeplearnConverter.getDims(options.target[0]);
-        // let modelTargetDims = this.model[this.model.length-1].units as number[];
-        // if(!DeeplearnConverter.isEqual(inputDims, modelInputDims)) throw(`Wrong dimensions for inputs: model has shape [${modelInputDims}], but input has shape [${inputDims}].`);
-        // if(!DeeplearnConverter.isEqual(targetDims, modelTargetDims)) throw(`Wrong dimensions for targets: model has shape [${modelTargetDims}], but target has shape [${targetDims}].`);
-        
+               
         // Defaults
         options.batchSize = options.batchSize || 32;
         options.epochs = options.epochs || 1;
@@ -229,9 +223,7 @@ export class Sequential{
         const targetArray = options.target.map(el => Array1D.new(el));
 
         const shuffledInputProviderBuilder =
-            (typeof window === 'undefined') ?
-                new InCPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]) :
-                new InGPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]);
+            new InGPUMemoryShuffledInputProviderBuilder([inputArray, targetArray]);
 
         const [inputProvider, targetProvider] =
             shuffledInputProviderBuilder.getInputProviders();
@@ -248,6 +240,7 @@ export class Sequential{
                 if((options.log > 0 && i % options.log) === 0){
                     this.stats.loss = await this.stats.cost.val();
                     this.log(`Epoch: ${i}/${options.epochs}, Loss: ${this.stats.loss}.`);
+                    if(options.targetLoss && this.stats.loss < options.targetLoss) break;
                 }
             }
             this.stats.loss = await this.stats.cost.val();
@@ -256,7 +249,7 @@ export class Sequential{
         const timeEnd: number = new Date().valueOf();
         const time = timeEnd - timeStart;
 
-        this.log(`Epoch: ${options.epochs}/${options.epochs}, Loss: ${this.stats.loss}.`);
+        this.log(`Epoch: ${this.stats.epochsRun}/${options.epochs}, Loss: ${this.stats.loss}.`);
         this.log(`Took ${time}ms.`);
         return true;
 
