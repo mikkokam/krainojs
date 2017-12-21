@@ -189,7 +189,7 @@ export class Sequential{
      * @param options.target Array of target (label) data. Mandatory.<br>
      * @param options.batchSize Number of samples per gradient update. If unspecified, it will default to 32.<br>
      * @param options.epochs Number of epochs to train. Each epoch is an iteration over the entire input and target data provided. If unspecified, it will default to 1.<br>
-     * @param options.targetLoss If provided, the training will be stopped when this loss has been reached, regardless ofthe epochs run. Value should be a float between 0 and 1.
+     * @param options.targetLoss Float between 0 and 1. If provided, the training will be stopped when this loss has been reached, regardless of the epochs run.
      * @param options.log Number of epochs to run between logging. 0 = silent. 10 = log every 10 epochs. If unspecified, it will default to 10.<br>
      * @param options.validationSplit TO BE IMPLEMENTED. Float between 0 and 1. Fraction of the training data to be used as validation data. The model will set apart this fraction of the training data, will not train on it, and will evaluate the loss and any model metrics on this data at the end of each epoch. The validation data is selected from the last samples in the x and y data provided, before shuffling. Default: 0 == no validation.<br>
      * @param options.shuffle Boolean (whether to shuffle the training data before each epoch). If unspecified, it will default to true.<br>
