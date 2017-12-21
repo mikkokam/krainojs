@@ -1,10 +1,6 @@
 import { Sequential, Layers, Optimizers, Losses } from '../src'; 
 import { Utils } from '../src/utils';
 
-import 'jimp/browser/lib/jimp.min';
-declare var Jimp: any;
-
-
 let model = new Sequential();
 model.add(Layers.input([64,64,3]));
 model.add(Layers.conv2D(5,{outputDepth: 8, stride: 1, zeroPad: 2}));

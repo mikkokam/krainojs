@@ -193,7 +193,7 @@ export class Sequential{
      * @returns Promise, resolving to true once the model is trained.
      */
     async fit(options:{
-        input: any[] | Float32Array | Int32Array | Uint8Array,
+        input: any[],
         target: any[],
 
         batchSize?: number,
