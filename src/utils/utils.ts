@@ -1,6 +1,15 @@
 import 'jimp/browser/lib/jimp.min';
+
+/**
+ * Internally Utils is using Jimp to load and manipulate images.
+ * This will change later; current implementation only works in browser.
+ * Utils API for images should stay the same though.
+ */
 declare var Jimp: any;
 
+/**
+ * Utils to load and manipulate images, text and numbers.
+ */
 export class Utils{
     /**
      * Load image as a typed Array (Float32Array): a normalized (0...1) Array of RGB values.
