@@ -9,6 +9,7 @@ model.add(Layers.maxPooling2D(2));
 model.add(Layers.flatten());
 model.add(Layers.activation('relu'));
 model.add(Layers.output(2));
+model.add(Layers.activation('softmax'));
 
 console.log(model);
 
@@ -26,7 +27,7 @@ model.fit({
         [0,1],
         [1,0]
     ],
-    epochs: 500
+    epochs: 100
 })
 .then(() => {
     return model.predict({

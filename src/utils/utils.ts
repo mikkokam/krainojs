@@ -8,7 +8,7 @@ import 'jimp/browser/lib/jimp.min';
 declare var Jimp: any;
 
 /**
- * Utils to load and manipulate images, text and numbers.
+ * BROWSER utils to load and manipulate images, text and numbers.
  */
 export class Utils{
     /**
@@ -23,19 +23,20 @@ export class Utils{
             return img.contain(shape[0], shape[1]);
         })
         .then(img => {
-            let data = new Float32Array(img.bitmap.data);
-            // TODO: shape 1 = b/w
-            if(shape[2] == 4) return data;
+            // From Buffer to Array, and normalize
+            let data = new Float32Array(img.bitmap.data).map(el => el/255);
+            if(shape[2] > 3) return data;
             let i=-1;
-            // normalize and drop alpha channel (rgba --> rgb)
-            return data.map(el => el/255).filter(el => {
+            // Drop alpha channel (rgba --> rgb)
+            return data.filter(el => {
                 i++;
                 return (i>0 && i % 4 !== 0);
             });
+            // TODO: add black&white (1 channel) option and grayscale option
         })
     }
     /**
-     * Load many images as a typed Array (Float32Array): a normalized (0...1) Array of RGB values.
+     * Load many images as an Array of typed Arrays (Float32Array[]) - see loadImage().
      * You can then easily use the images to train a model:
      *  <pre>import { Utils } from 'Kranio/utils';
      *  // set up model with an input of shape [32,32,3] first, then:
@@ -46,7 +47,7 @@ export class Utils{
      *          target: [[0,1], [1,0], [1,1]] // some target values or label Arrays
      *      });
      *  })</pre>
-     * @param urls An Array of the url's to load: ['http://somedomain.com/img/someimage.jpg','subdir/img.png']
+     * @param urls An Array of the url's to load: ['http://somedomain.com/img/someimage.jpg', 'subdir/img.png']
      * @param shape An Array of the output image dimensions: [x,y,channels] - i.e. [64,64,3] means fit in 64x64 px, and output only RGB values (skip Alpha channel).
      * @returns An Array of the images. Each image is an Array of the normalized (0...1) pixel RGB values.
      */

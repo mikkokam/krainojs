@@ -12,6 +12,7 @@ model.add(Layers.activation('relu'));
 model.add(Layers.maxPooling2D(2, {stride: 2, zeroPad: 0}));
 model.add(Layers.flatten());
 model.add(Layers.output(2));
+model.add(Layers.activation('softmax'));
 
 let images = [];
 

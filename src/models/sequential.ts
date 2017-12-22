@@ -108,15 +108,24 @@ export class Sequential{
         dl.inputTensor = dl.graph.placeholder('input', inputDims);
         
         // This tensor contains the target
-        if(this.model[this.model.length-1].type !== 'output') throw ('Last layer must be an Output layer.')
-        let outputDims: number[] = this.model[this.model.length-1].units as number[];
+        // if(this.model[this.model.length-1].type !== 'output') throw ('Last layer must be an Output layer.');
+        let output = this.model.filter(layer => layer.type == 'output')
+        if(output.length !== 1) throw ('Exactly one layer must be an Output layer.');
+        let outputDims: number[] = output[0].units as number[];
         dl.targetTensor = dl.graph.placeholder('output', outputDims);
 
+       
+        
         // Hidden layers
         let prevLayer = dl.inputTensor;
-        for(let i=1; i<(this.model.length-1);i++){
+        for(let i=1; i<(this.model.length);i++){
             let layer = this.model[i];
             switch(layer.type){
+                case 'output':
+                // This tensor contains the predictions
+                prevLayer = dl.predictionTensor = dl.graph.layers.dense('prediction', prevLayer, outputDims[0]);
+                break;
+
                 case 'dense':
                 prevLayer = dl.graph.layers.dense(
                     `layer-${i}`, prevLayer, layer.units as number);
@@ -161,11 +170,10 @@ export class Sequential{
                 default:
                 throw ('Unknown layer type: '+layer.type);
             }
+            dl.finalTensor = prevLayer;
         
         }
 
-        // This tensor contains the predictions
-        dl.predictionTensor = dl.graph.layers.dense('prediction', prevLayer, outputDims[0]);
 
         // Add a cost tensor that specifies the loss function
         dl.costTensor = DeeplearnConverter.createCostFunction(dl, options.loss);
@@ -182,6 +190,7 @@ export class Sequential{
     /**
      * Trains the model for a fixed number of epochs: iterations on the dataset.
      * You can run this many times, continuing the previous training (with the same or different data).
+     * The training will be done from the 'input' layer to the 'output' layer in the model. The model may have other layers after that: typically a 'softmax' activation might follow the 'output' layer.
      * @param options.input Array of training data. Mandatory.<br>
      * @param options.target Array of target (label) data. Mandatory.<br>
      * @param options.batchSize Number of samples per gradient update. If unspecified, it will default to 32.<br>
@@ -233,7 +242,7 @@ export class Sequential{
             for (let i = 0; i < options.epochs; i++) {
                 this.stats.epochsRun = i; // TODO: enable pause & continue
                 this.stats.cost = this.deeplearn.session.train(
-                    this.deeplearn.costTensor, feedEntries, 4, this.deeplearn.optimizer, CostReduction.MEAN); //TODO: costreduction must be configurable?
+                    this.deeplearn.costTensor, feedEntries, options.batchSize, this.deeplearn.optimizer, CostReduction.MEAN); //TODO: costreduction must be configurable?
                 if((options.log > 0 && i % options.log) === 0){
                     this.stats.loss = await this.stats.cost.val();
                     this.log(`Epoch: ${i}/${options.epochs}, Loss: ${this.stats.loss}.`);
@@ -253,7 +262,8 @@ export class Sequential{
 
     /**
      * Generates output predictions for the input samples.
-     * @param options.input The input data; an Array of inputs.
+     * The prediction will be done from the 'input' layer to the last layer in the model. The model may have other layers after the 'output' layer: typically a 'softmax' activation might follow it.
+     * @param options.input The input data; an Array of input values (one activation).
      * @param options.batchSize TO BE IMPLEMENTED.
      * @param options.verbose TO BE IMPLEMENTED.
      */
@@ -265,7 +275,7 @@ export class Sequential{
         options.batchSize = options.batchSize || 32;
         options.verbose = options.verbose || 1;
         const inputArray = DeeplearnConverter.convertToDeeplearnArray(this.deeplearn.inputTensor.shape, options.input);
-        const val = this.deeplearn.session.eval(this.deeplearn.predictionTensor, 
+        const val = this.deeplearn.session.eval(this.deeplearn.finalTensor, 
             [{tensor: this.deeplearn.inputTensor, data: inputArray}]);
         return val.data();
     }

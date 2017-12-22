@@ -2,9 +2,17 @@ import { Loss } from "../losses/index";
 import { Optimizer } from "../optimizers";
 import { Layer } from "../layers";
 
-import { SGDOptimizer, AdamOptimizer, AdamaxOptimizer, AdadeltaOptimizer, AdagradOptimizer, MomentumOptimizer } from 'deeplearn';
-import { NDArray, Array1D, Array2D, Array3D, Array4D, Tensor } from "deeplearn";
-import { Graph, Session, NDArrayMath } from "deeplearn";
+
+import { Session } from "deeplearn/dist/graph/session";
+import { Graph, Tensor } from "deeplearn/dist/graph/graph";
+import { NDArrayMath } from "deeplearn/dist/math/math";
+import { NDArray, Array1D, Array2D, Array3D, Array4D } from "deeplearn/dist/math/ndarray";
+import { SGDOptimizer } from "deeplearn/dist/graph/optimizers/sgd_optimizer";
+import { AdamOptimizer } from "deeplearn/dist/graph/optimizers/adam_optimizer";
+import { AdamaxOptimizer } from "deeplearn/dist/graph/optimizers/adamax_optimizer";
+import { AdadeltaOptimizer } from "deeplearn/dist/graph/optimizers/adadelta_optimizer";
+import { AdagradOptimizer } from "deeplearn/dist/graph/optimizers/adagrad_optimizer";
+import { MomentumOptimizer } from "deeplearn/dist/graph/optimizers/momentum_optimizer";
 
 /**
  * The Interface including all data needed for a Deeplearn.js model
@@ -14,6 +22,7 @@ export interface DeeplearnModel{
     inputTensor?: Tensor,
     targetTensor?: Tensor,
     predictionTensor?: Tensor,
+    finalTensor?: Tensor,
     costTensor?: Tensor,
     session?: Session,
     math?: NDArrayMath,
