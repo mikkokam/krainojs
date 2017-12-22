@@ -87,13 +87,23 @@ export class Layers{
         return layer;
     }
 
-    static output(units: number | number[] ){
+    /**
+     * Output layer - a dense layer. Typically the last layer in the model.
+     * The <b>prediction</b> will be done from the 'input' layer to the <b>last layer</b> in the model.
+     * The model may have other layers after this 'output' layer: typically a 'softmax' activation might follow it.
+     * The layer(s) after the output layer will be used in prediction only.
+     * @param units Output size.
+     */
+    static output(units: number | number[] ):Layer {
         let layer:Layer = { units: units, type: 'output' };
         if(!Array.isArray(layer.units)) layer.units = [layer.units];
         return layer;
     }
-
-    static reshape(outputShape:number[]){
+    /**
+     * 
+     * @param outputShape 
+     */
+    static reshape(outputShape:number[]):Layer {
         let layer:Layer = {
             units: outputShape,
             type: 'reshape',
