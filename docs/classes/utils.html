@@ -949,7 +949,7 @@ img { max-width: 100%; }
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<p>Utils to load and manipulate images, text and numbers.</p>
+					<p>BROWSER utils to load and manipulate images, text and numbers.</p>
 				</div>
 			</div>
 		</section>
@@ -987,7 +987,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/utils/utils.ts#L20">utils/utils.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/utils/utils.ts#L20">utils/utils.ts:20</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1025,12 +1025,12 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/utils/utils.ts#L53">utils/utils.ts:53</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/utils/utils.ts#L54">utils/utils.ts:54</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Load many images as a typed Array (Float32Array): a normalized (0...1) Array of RGB values.
+								<p>Load many images as an Array of typed Arrays (Float32Array[]) - see loadImage().
 									You can then easily use the images to train a model:
 									<pre>import { Utils } from &#39;Kranio/utils&#39;;
  // set up model with an input of shape [32,32,3] first, then:
@@ -1048,7 +1048,7 @@ img { max-width: 100%; }
 							<li>
 								<h5>urls: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>An Array of the url&#39;s to load: [&#39;<a href="http://somedomain.com/img/someimage.jpg&#39;,&#39;subdir/img.png">http://somedomain.com/img/someimage.jpg&#39;,&#39;subdir/img.png</a>&#39;]</p>
+									<p>An Array of the url&#39;s to load: [&#39;<a href="http://somedomain.com/img/someimage.jpg">http://somedomain.com/img/someimage.jpg</a>&#39;, &#39;subdir/img.png&#39;]</p>
 								</div>
 							</li>
 							<li>

@@ -1021,7 +1021,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L34">models/sequential.ts:34</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L34">models/sequential.ts:34</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1064,7 +1064,7 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L78">models/sequential.ts:78</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L78">models/sequential.ts:78</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1095,7 +1095,7 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L88">models/sequential.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L88">models/sequential.ts:88</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1137,13 +1137,14 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L195">models/sequential.ts:195</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L204">models/sequential.ts:204</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Trains the model for a fixed number of epochs: iterations on the dataset.
-								You can run this many times, continuing the previous training (with the same or different data).</p>
+									You can run this many times, continuing the previous training (with the same or different data).
+								The training will be done from the &#39;input&#39; layer to the &#39;output&#39; layer in the model. The model may have other layers after that: typically a &#39;softmax&#39; activation might follow the &#39;output&#39; layer.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1217,12 +1218,13 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L260">models/sequential.ts:260</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L270">models/sequential.ts:270</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Generates output predictions for the input samples.</p>
+								<p>Generates output predictions for the input samples.
+								The prediction will be done from the &#39;input&#39; layer to the last layer in the model. The model may have other layers after the &#39;output&#39; layer: typically a &#39;softmax&#39; activation might follow it.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1239,7 +1241,7 @@ model.add(Layers.output(1));</pre></p>
 									<li class="tsd-parameter">
 										<h5>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Int32Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span></h5>
 										<div class="tsd-comment tsd-typography">
-											<p>The input data; an Array of inputs.</p>
+											<p>The input data; an Array of input values (one activation).</p>
 										</div>
 									</li>
 									<li class="tsd-parameter">
@@ -1265,7 +1267,7 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L60">models/sequential.ts:60</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L60">models/sequential.ts:60</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1296,7 +1298,7 @@ model.add(Layers.output(1));</pre></p>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L71">models/sequential.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L71">models/sequential.ts:71</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -1330,7 +1332,7 @@ model.add(Layers.output(1));</pre></p>
 				<div class="tsd-signature tsd-kind-icon">stats<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L20">models/sequential.ts:20</a></li>
+						<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L20">models/sequential.ts:20</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1341,7 +1343,7 @@ model.add(Layers.output(1));</pre></p>
 					<div class="tsd-signature tsd-kind-icon">compiled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L26">models/sequential.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L26">models/sequential.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1354,7 +1356,7 @@ model.add(Layers.output(1));</pre></p>
 					<div class="tsd-signature tsd-kind-icon">cost<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L27">models/sequential.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L27">models/sequential.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1367,7 +1369,7 @@ model.add(Layers.output(1));</pre></p>
 					<div class="tsd-signature tsd-kind-icon">epochs<wbr>Run<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L29">models/sequential.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L29">models/sequential.ts:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1380,7 +1382,7 @@ model.add(Layers.output(1));</pre></p>
 					<div class="tsd-signature tsd-kind-icon">loss<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/5dda111/src/models/sequential.ts#L28">models/sequential.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/mikkokam/krainojs/blob/2aaee51/src/models/sequential.ts#L28">models/sequential.ts:28</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
