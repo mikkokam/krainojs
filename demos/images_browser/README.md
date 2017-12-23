@@ -1,7 +1,10 @@
-Image classification: cat or dog?
+###Image classification: cat or dog?
 
-Run parcel index.html in this directory. Leave it running.
+Install parcel-bundler first: `npm install -g parcel-bundler`.
+
+then, run `parcel index.html` in this directory. Leave it running.
 Open Chrome and point it at http://localhost:1234/dist/index.html
+Please note that http://localhost:1234 will **not** work - it won't have access to the train images.
 
 Open developer tools - console to see the output.
 

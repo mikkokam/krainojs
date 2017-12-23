@@ -1,7 +1,6 @@
-Command line samples
+###Command line samples
 
-Use ts-node (typescript node).
-`npm install -g ts-node` first.
+Use ts-node (typescript node) - `npm install -g ts-node` first.
 
 ````
 ts-node graph1d.ts
