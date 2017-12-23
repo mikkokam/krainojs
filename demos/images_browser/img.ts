@@ -66,7 +66,7 @@ window["predict"] = () => {
         return;
     }
     console.log('%c\nLoading a cat.','color: purple');
-    Utils.loadImage('train/cat.8002.jpg',[32,32,3])
+    Utils.loadImage('train/cat.2000.jpg',[32,32,3])
     .then(img =>{
         console.log('Predicting...');
         return model.predict({input: img})
@@ -75,7 +75,7 @@ window["predict"] = () => {
         console.log('Result: ',res);
         console.log(`The network thinks it is ${Math.round(res[0]*100)}% cat, ${Math.round(res[1]*100)}% dog.`);
         console.log('%c\nLoading a dog.', 'color: green');
-        Utils.loadImage('train/dog.8002.jpg',[32,32,3])
+        Utils.loadImage('train/dog.2000.jpg',[32,32,3])
         .then(img =>{
             console.log('Predicting...');
             return model.predict({input: img})
@@ -96,7 +96,7 @@ window["fit"] = () => {
     model.fit({
         input: images,
         target: targets,
-        epochs: 500,
+        epochs: 400,
         batchSize: 20,
         targetLoss: 0.01
     })

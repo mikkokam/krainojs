@@ -15477,6 +15477,7 @@ var Utils = (function () {
                     })
                         .then(function (img) {
                         var data = new Float32Array(img.bitmap.data).map(function (el) { return el / 255; });
+                        img.bitmap = null;
                         if (shape[2] > 3)
                             return data;
                         var i = -1;

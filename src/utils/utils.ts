@@ -25,6 +25,7 @@ export class Utils{
         .then(img => {
             // From Buffer to Array, and normalize
             let data = new Float32Array(img.bitmap.data).map(el => el/255);
+            img.bitmap = null;
             if(shape[2] > 3) return data;
             let i=-1;
             // Drop alpha channel (rgba --> rgb)
