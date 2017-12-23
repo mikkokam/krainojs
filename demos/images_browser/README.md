@@ -8,10 +8,10 @@ Please note that http://localhost:1234 will **not** work - it won't have access 
 
 Open developer tools - console to see the output.
 
-Edit with img.ts in this folder to test different scenarios and models.
+Edit `img.ts` in this folder to test different scenarios and models.
 
 Especially; you can edit 
-the amount of samples, 
-the model layers and their parameters, 
-the optimizer and its parameters, 
-the fit parameters (training).
+* the amount of samples, 
+* the model layers and their parameters, 
+* the optimizer and its parameters, 
+* the fit parameters (training).
