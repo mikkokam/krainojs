@@ -22,7 +22,7 @@ model.add(Layers.activation('softmax'));
 let urls = {cats: [], dogs: []};
 let images = [];
 let targets = [];
-let samples = 50;
+let samples = 500;
 
 console.clear();
 console.log(`Loading ${samples} samples each. Please wait...`);
