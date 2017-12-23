@@ -1,4 +1,4 @@
-###Image classification: cat or dog?
+### Image classification: cat or dog?
 
 Install parcel-bundler first: `npm install -g parcel-bundler`.
 
