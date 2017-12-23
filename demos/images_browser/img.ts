@@ -9,10 +9,10 @@ import { Utils } from '../../src/utils';
 
 let model = new Sequential();
 model.add(Layers.input([32,32,3]));
-model.add(Layers.conv2D(5,{outputDepth: 8, stride: 1, zeroPad: 2}));
+model.add(Layers.conv2D(3,{outputDepth: 8, stride: 3, zeroPad: 2}));
 model.add(Layers.activation('relu'));
 model.add(Layers.maxPooling2D(2, {stride: 2, zeroPad: 0}));
-model.add(Layers.conv2D(5,{outputDepth: 16, stride: 1, zeroPad: 2}));
+model.add(Layers.conv2D(3,{outputDepth: 16, stride: 1, zeroPad: 2}));
 model.add(Layers.activation('relu'));
 model.add(Layers.maxPooling2D(2, {stride: 2, zeroPad: 0}));
 model.add(Layers.flatten());
@@ -22,7 +22,7 @@ model.add(Layers.activation('softmax'));
 let urls = {cats: [], dogs: []};
 let images = [];
 let targets = [];
-let samples = 500;
+let samples = 50;
 
 console.clear();
 console.log(`Loading ${samples} samples each. Please wait...`);
@@ -97,7 +97,7 @@ window["fit"] = () => {
         input: images,
         target: targets,
         epochs: 400,
-        batchSize: 20,
+        batchSize: 10,
         targetLoss: 0.01
     })
     .then(() => {

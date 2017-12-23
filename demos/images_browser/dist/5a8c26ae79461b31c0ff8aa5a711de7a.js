@@ -72,10 +72,10 @@ var src_1 = require("../../src");
 var utils_1 = require("../../src/utils");
 var model = new src_1.Sequential();
 model.add(src_1.Layers.input([32, 32, 3]));
-model.add(src_1.Layers.conv2D(5, { outputDepth: 8, stride: 1, zeroPad: 2 }));
+model.add(src_1.Layers.conv2D(3, { outputDepth: 8, stride: 3, zeroPad: 2 }));
 model.add(src_1.Layers.activation('relu'));
 model.add(src_1.Layers.maxPooling2D(2, { stride: 2, zeroPad: 0 }));
-model.add(src_1.Layers.conv2D(5, { outputDepth: 16, stride: 1, zeroPad: 2 }));
+model.add(src_1.Layers.conv2D(3, { outputDepth: 16, stride: 1, zeroPad: 2 }));
 model.add(src_1.Layers.activation('relu'));
 model.add(src_1.Layers.maxPooling2D(2, { stride: 2, zeroPad: 0 }));
 model.add(src_1.Layers.flatten());
@@ -84,7 +84,7 @@ model.add(src_1.Layers.activation('softmax'));
 var urls = { cats: [], dogs: [] };
 var images = [];
 var targets = [];
-var samples = 500;
+var samples = 50;
 console.clear();
 console.log("Loading " + samples + " samples each. Please wait...");
 for (var i = 0; i < samples; i++) {
@@ -152,7 +152,7 @@ window["fit"] = function () {
         input: images,
         target: targets,
         epochs: 400,
-        batchSize: 20,
+        batchSize: 10,
         targetLoss: 0.01
     })
         .then(function () {
