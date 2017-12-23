@@ -121,7 +121,7 @@ window["predict"] = function () {
         console.log('Please train first');
         return;
     }
-    console.log('%c\nLoading a cat.', 'color: purple');
+    console.log('%c\nLoading a cat img not seen in training.', 'color: purple');
     utils_1.Utils.loadImage('train/cat.2000.jpg', [32, 32, 3])
         .then(function (img) {
         console.log('Predicting...');
@@ -130,7 +130,7 @@ window["predict"] = function () {
         .then(function (res) {
         console.log('Result: ', res);
         console.log("The network thinks it is " + Math.round(res[0] * 100) + "% cat, " + Math.round(res[1] * 100) + "% dog.");
-        console.log('%c\nLoading a dog.', 'color: green');
+        console.log('%c\nLoading a dog img not seen in training.', 'color: green');
         utils_1.Utils.loadImage('train/dog.2000.jpg', [32, 32, 3])
             .then(function (img) {
             console.log('Predicting...');
