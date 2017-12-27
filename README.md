@@ -27,6 +27,7 @@ Package.json has some npm scripts to help with development:
 
 The core data structure of Kraino is a model consisting of layers. The first type of model implemented is the Sequential model, a linear stack of layers. More complex architectures will be added later.
 
+
 ```
 import { Layers, Sequential } from 'Kraino';
 
@@ -35,6 +36,9 @@ let model = new Sequential();
 model.add(Layers.input(2));
 model.add(Layers.dense(16));
 model.add(Layers.output(1));
+
+// Compile the corresponding deeplearn.js model with default values - skip coding all the MathGPU hassle of deeplearn.js...
+model.compile();
 
 // Train it to predict XOR
 model.fit({
@@ -52,3 +56,44 @@ model.fit({
     console.log('Done, result:', res);
 })
 ```
+
+You can create many types of layers already: activation, convolutional, dense, flatten, input, max pooling, output, and reshape.
+
+Activations supported include: Linear, Softmax, ReLU, LeakyReLU, ELU, Tanh, and Sigmoid.
+
+You can override the default sgd optimizer with an adagrad, adadelta, adam, adamax, or momentum optimizer.
+
+All of these aim to have sensible defaults (you can omit parameters). Overriding is meant to be as easy as providing just the options you need:
+
+```
+model.add(Layers.conv2D(3));
+// Or
+model.add(
+    Layers.conv2D(3, {
+        outputDepth: 8,
+        stride: 3,
+        zeroPad: 2
+    })
+);
+```
+
+Or for optimizers:
+
+```
+model.compile();
+// Or
+model.compile({
+    optimizer: Optimizers.adadelta()
+});
+// or
+model.compile({
+    optimizer: Optimizers.adadelta({
+        learningRate: 0.1,
+        gamma: 0.1
+    }),
+    loss: Losses.meanSquared()
+});
+```
+
+
+  
