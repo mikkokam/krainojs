@@ -1,4 +1,4 @@
-import { Sequential, Layers, Optimizers, Losses } from '../src'; 
+import { Sequential, Layers, Optimizers, Losses } from '../../src'; 
 
 let model = new Sequential();
 
