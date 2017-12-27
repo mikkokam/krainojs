@@ -10,7 +10,7 @@ Open developer tools - console to see the output.
 
 Edit `img.ts` in this folder to test different scenarios and models.
 
-Especially; you can edit 
+For example; you could edit 
 * the amount of samples, 
 * the model layers and their parameters, 
 * the optimizer and its parameters, 
