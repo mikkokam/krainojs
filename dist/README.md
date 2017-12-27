@@ -3,4 +3,4 @@
 Instead, clone everything and test the demos first.
 Demos have README's to help you test things out.
 
-Also, check out the docs-folder after cloning.
+Also, check out the docs folder after cloning.
