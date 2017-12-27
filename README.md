@@ -1,5 +1,7 @@
 # Kraino.js
-A Keras-like API for deeplearn.js:
+
+A Keras-like API for deeplearn.js.
+
 Developer friendly GPU accelerated deep learning for the browser.
 
 Kraino is a high-level neural networks API, written in Typescript and capable of running on top of Deeplearn.js now, others later.
@@ -17,8 +19,7 @@ Package.json has some npm scripts to help with development:
 `npm run clean` - Clean the dist folder
 `npm run watch` - Build with Parcel bundler
 `npm run docs`  - Rebuild documentation with Typedoc
-
-###Getting started
+### Getting started
 
 The core data structure of Kraino is a model consisting of layers. The first type of model implemented is the Sequential model, a linear stack of layers. More complex architectures will be added later.
 
