@@ -66,20 +66,6 @@ You can override the default sgd optimizer with an adagrad, adadelta, adam, adam
 All of these aim to have sensible defaults (you can omit parameters). Overriding is meant to be as easy as providing just the options you need:
 
 ```
-model.add(Layers.conv2D(3));
-// Or
-model.add(
-    Layers.conv2D(3, {
-        outputDepth: 8,
-        stride: 3,
-        zeroPad: 2
-    })
-);
-```
-
-Or for optimizers:
-
-```
 model.compile();
 // Or
 model.compile({
