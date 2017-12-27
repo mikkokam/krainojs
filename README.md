@@ -16,9 +16,13 @@ Demos have README's to help you test things out.
 Package.json has some npm scripts to help with development:
 
 `npm run test`  - Jasmine tests with Karma
+
 `npm run clean` - Clean the dist folder
+
 `npm run watch` - Build with Parcel bundler
+
 `npm run docs`  - Rebuild documentation with Typedoc
+
 ### Getting started
 
 The core data structure of Kraino is a model consisting of layers. The first type of model implemented is the Sequential model, a linear stack of layers. More complex architectures will be added later.
