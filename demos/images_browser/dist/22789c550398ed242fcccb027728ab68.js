@@ -68,8 +68,8 @@ require = (function (modules, cache, entry) {
 })({3:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var src_1 = require("../../src");
-var utils_1 = require("../../src/utils");
+var src_1 = require("../../../src");
+var utils_1 = require("../../../src/utils");
 var model = new src_1.Sequential();
 model.add(src_1.Layers.input([32, 32, 3]));
 model.add(src_1.Layers.conv2D(3, { outputDepth: 8, stride: 3, zeroPad: 2 }));
@@ -88,11 +88,11 @@ var samples = 50;
 console.clear();
 console.log("Loading " + samples + " samples each. Please wait...");
 for (var i = 0; i < samples; i++) {
-    urls.cats.push("train/cat." + i + ".jpg");
+    urls.cats.push("dist/train/cat." + i + ".jpg");
     targets.push([1, 0]);
 }
 for (var i = 0; i < samples; i++) {
-    urls.dogs.push("train/dog." + i + ".jpg");
+    urls.dogs.push("dist/train/dog." + i + ".jpg");
     targets.push([0, 1]);
 }
 console.log('Loading cats...');
@@ -122,7 +122,7 @@ window["predict"] = function () {
         return;
     }
     console.log('%c\nLoading a cat img not seen in training.', 'color: purple');
-    utils_1.Utils.loadImage('train/cat.2000.jpg', [32, 32, 3])
+    utils_1.Utils.loadImage('dist/train/cat.3000.jpg', [32, 32, 3])
         .then(function (img) {
         console.log('Predicting...');
         return model.predict({ input: img });
@@ -131,7 +131,7 @@ window["predict"] = function () {
         console.log('Result: ', res);
         console.log("The network thinks it is " + Math.round(res[0] * 100) + "% cat, " + Math.round(res[1] * 100) + "% dog.");
         console.log('%c\nLoading a dog img not seen in training.', 'color: green');
-        utils_1.Utils.loadImage('train/dog.2000.jpg', [32, 32, 3])
+        utils_1.Utils.loadImage('dist/train/dog.3000.jpg', [32, 32, 3])
             .then(function (img) {
             console.log('Predicting...');
             return model.predict({ input: img });
@@ -161,7 +161,7 @@ window["fit"] = function () {
     });
 };
 //# sourceMappingURL=img.js.map
-},{"../../src":2,"../../src/utils":7}],0:[function(require,module,exports) {
+},{"../../../src":2,"../../../src/utils":8}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
 function Module() {
@@ -179,7 +179,7 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent) {
-  var ws = new WebSocket('ws://localhost:62914/');
+  var ws = new WebSocket('ws://localhost:62694/');
   ws.onmessage = function(event) {
     var data = JSON.parse(event.data);
 

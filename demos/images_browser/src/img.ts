@@ -1,5 +1,5 @@
-import { Sequential, Layers, Optimizers, Losses } from '../../src'; 
-import { Utils } from '../../src/utils';
+import { Sequential, Layers, Optimizers, Losses } from '../../../src'; 
+import { Utils } from '../../../src/utils';
 
 // import * as Kraino from '../../dist';
 
@@ -27,11 +27,11 @@ let samples = 50;
 console.clear();
 console.log(`Loading ${samples} samples each. Please wait...`);
 for (let i=0; i < samples; i++){
-    urls.cats.push(`train/cat.${i}.jpg`);
+    urls.cats.push(`dist/train/cat.${i}.jpg`);
     targets.push([1,0]); // cat
 }
 for (let i=0; i < samples; i++){
-    urls.dogs.push(`train/dog.${i}.jpg`);
+    urls.dogs.push(`dist/train/dog.${i}.jpg`);
     targets.push([0,1]); // dog
 }
 // Load cats
@@ -66,7 +66,7 @@ window["predict"] = () => {
         return;
     }
     console.log('%c\nLoading a cat img not seen in training.','color: purple');
-    Utils.loadImage('train/cat.2000.jpg',[32,32,3])
+    Utils.loadImage('dist/train/cat.3000.jpg',[32,32,3])
     .then(img =>{
         console.log('Predicting...');
         return model.predict({input: img})
@@ -75,7 +75,7 @@ window["predict"] = () => {
         console.log('Result: ',res);
         console.log(`The network thinks it is ${Math.round(res[0]*100)}% cat, ${Math.round(res[1]*100)}% dog.`);
         console.log('%c\nLoading a dog img not seen in training.', 'color: green');
-        Utils.loadImage('train/dog.2000.jpg',[32,32,3])
+        Utils.loadImage('dist/train/dog.3000.jpg',[32,32,3])
         .then(img =>{
             console.log('Predicting...');
             return model.predict({input: img})

@@ -2,13 +2,12 @@
 
 Install parcel-bundler first: `npm install -g parcel-bundler`.
 
-then, run `parcel index.html` in this directory. Leave it running.
-Open Chrome and point it at http://localhost:1234/dist/index.html
-Please note that http://localhost:1234 will **not** work - it won't have access to the images.
+then, run `parcel src` in this directory. Leave it running.
+Open Chrome and point it at http://localhost:1234
 
 Open developer tools - console to see the output.
 
-Edit `img.ts` in this folder to test different scenarios and models.
+Edit `img.ts` in src folder to test different scenarios and models.
 
 For example; you could edit 
 * the amount of samples, 
