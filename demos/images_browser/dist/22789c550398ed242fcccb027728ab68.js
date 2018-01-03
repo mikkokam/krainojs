@@ -71,8 +71,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var src_1 = require("../../../src");
 var utils_1 = require("../../../src/utils");
 var model = new src_1.Sequential();
-model.add(src_1.Layers.input([32, 32, 3]));
-model.add(src_1.Layers.conv2D(3, { outputDepth: 8, stride: 3, zeroPad: 2 }));
+model.add(src_1.Layers.input([64, 64, 3]));
+model.add(src_1.Layers.conv2D(6, { outputDepth: 8, stride: 4, zeroPad: 1 }));
 model.add(src_1.Layers.activation('relu'));
 model.add(src_1.Layers.maxPooling2D(2, { stride: 2, zeroPad: 0 }));
 model.add(src_1.Layers.conv2D(3, { outputDepth: 16, stride: 1, zeroPad: 2 }));
@@ -84,7 +84,7 @@ model.add(src_1.Layers.activation('softmax'));
 var urls = { cats: [], dogs: [] };
 var images = [];
 var targets = [];
-var samples = 50;
+var samples = 200;
 console.clear();
 console.log("Loading " + samples + " samples each. Please wait...");
 for (var i = 0; i < samples; i++) {
@@ -96,11 +96,11 @@ for (var i = 0; i < samples; i++) {
     targets.push([0, 1]);
 }
 console.log('Loading cats...');
-utils_1.Utils.loadImages(urls.cats, [32, 32, 3])
+utils_1.Utils.loadImages(urls.cats, [64, 64, 3])
     .then(function (imgs) {
     console.log('Cats OK. Loading dogs...');
     images = imgs;
-    return utils_1.Utils.loadImages(urls.dogs, [32, 32, 3]);
+    return utils_1.Utils.loadImages(urls.dogs, [64, 64, 3]);
 })
     .then(function (imgs) {
     images = images.concat(imgs);
@@ -121,23 +121,29 @@ window["predict"] = function () {
         console.log('Please train first');
         return;
     }
+    var randomId = samples + Math.round(Math.random() * (12000 - samples));
     console.log('%c\nLoading a cat img not seen in training.', 'color: purple');
-    utils_1.Utils.loadImage('dist/train/cat.3000.jpg', [32, 32, 3])
+    utils_1.Utils.loadImage("dist/train/cat." + randomId + ".jpg", [64, 64, 3])
         .then(function (img) {
         console.log('Predicting...');
+        displayImg(img, 'pic1');
         return model.predict({ input: img });
     })
         .then(function (res) {
         console.log('Result: ', res);
+        displayResult(res, 'label1');
         console.log("The network thinks it is " + Math.round(res[0] * 100) + "% cat, " + Math.round(res[1] * 100) + "% dog.");
+        var randomId = samples + Math.round(Math.random() * (12000 - samples));
         console.log('%c\nLoading a dog img not seen in training.', 'color: green');
-        utils_1.Utils.loadImage('dist/train/dog.3000.jpg', [32, 32, 3])
+        utils_1.Utils.loadImage("dist/train/dog." + randomId + ".jpg", [64, 64, 3])
             .then(function (img) {
             console.log('Predicting...');
+            displayImg(img, 'pic2');
             return model.predict({ input: img });
         })
             .then(function (res) {
             console.log('Result: ', res);
+            displayResult(res, 'label2');
             console.log("The network thinks it is " + Math.round(res[0] * 100) + "% cat, " + Math.round(res[1] * 100) + "% dog.\n");
         });
     });
@@ -151,15 +157,40 @@ window["fit"] = function () {
     model.fit({
         input: images,
         target: targets,
-        epochs: 400,
-        batchSize: 10,
-        targetLoss: 0.01
+        epochs: 100,
+        targetLoss: 0.01,
+        log: 10
     })
         .then(function () {
         trained = true;
         console.log('Training OK, you can train more or Predict now.');
     });
 };
+function displayImg(img, canvasId) {
+    var c = document.getElementById(canvasId);
+    var ctx = c.getContext("2d");
+    var imgData = ctx.createImageData(64, 64);
+    var arr = img.dataSync();
+    var i = -1;
+    var j = -1;
+    imgData.data.forEach(function (val) {
+        j++;
+        if (j === 0 || ((j + 1) % 4 !== 0)) {
+            i++;
+            imgData.data[j] = arr[i] || 0;
+        }
+        else {
+            imgData.data[j] = 255;
+        }
+    });
+    ctx.putImageData(imgData, 0, 0);
+}
+function displayResult(res, labelId) {
+    if (res[0] > res[1])
+        document.getElementById(labelId).innerText = Math.round(res[0] * 100) + "% cat";
+    else
+        document.getElementById(labelId).innerText = Math.round(res[1] * 100) + "% dog";
+}
 //# sourceMappingURL=img.js.map
 },{"../../../src":2,"../../../src/utils":8}],0:[function(require,module,exports) {
 var global = (1, eval)('this');
@@ -179,7 +210,7 @@ function Module() {
 module.bundle.Module = Module;
 
 if (!module.bundle.parent) {
-  var ws = new WebSocket('ws://localhost:62694/');
+  var ws = new WebSocket('ws://localhost:59187/');
   ws.onmessage = function(event) {
     var data = JSON.parse(event.data);
 

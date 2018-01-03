@@ -39,7 +39,9 @@ export class DeeplearnConverter{
      */
     static convertToDeeplearnArray(shape: any, arr: number[] | boolean[] | Float32Array | Int32Array | Uint8Array): NDArray{
         let dlArray;
-        switch(shape.length){
+        // Is a Deeplearn.js Array already?
+        if(!Array.isArray(arr)) dlArray = arr;
+        else switch(shape.length){
             case 1:
             dlArray = Array1D.new(arr);
             break;

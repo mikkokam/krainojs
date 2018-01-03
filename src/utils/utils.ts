@@ -1,11 +1,5 @@
-import 'jimp/browser/lib/jimp.min';
+import { Array3D, ENV } from 'deeplearn';
 
-/**
- * Internally Utils is using Jimp to load and manipulate images.
- * This will change later; current implementation only works in browser.
- * Utils API for images should stay the same though.
- */
-declare var Jimp: any;
 
 /**
  * BROWSER utils to load and manipulate images, text and numbers.
@@ -17,24 +11,16 @@ export class Utils{
      * @param shape An Array of the output image dimensions: [x,y,channels] - i.e. [64,64,3] means fit in 64x64 px, and output only RGB values (skip Alpha channel).
      * @returns An Array of the normalized pixel RGB values.
      */
-    static async loadImage(url, shape: number[]): Promise<Float32Array>{
-        return Jimp.read(url)
-        .then(img => {
-            return img.contain(shape[0], shape[1]);
-        })
-        .then(img => {
-            // From Buffer to Array, and normalize
-            let data = new Float32Array(img.bitmap.data).map(el => el/255);
-            img.bitmap = null;
-            if(shape[2] > 3) return data;
-            let i=-1;
-            // Drop alpha channel (rgba --> rgb)
-            return data.filter(el => {
-                i++;
-                return (i>0 && i % 4 !== 0);
-            });
-            // TODO: add black&white (1 channel) option and grayscale option
-        })
+    static async loadImage(url, shape: number[]): Promise<any>{
+        return new Promise((resolve, reject) => {
+            let img = new Image();   // Create new img element
+            img.addEventListener('load', () => {
+                resolve(ENV.math.resizeBilinear3D(Array3D.fromPixels(img), [shape[0], shape[1]]));
+            }, false);
+            img.src = url;
+        });
+
+        // TODO: add black&white (1 channel) option and grayscale option
     }
     /**
      * Load many images as an Array of typed Arrays (Float32Array[]) - see loadImage().
